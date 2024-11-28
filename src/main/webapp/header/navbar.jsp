@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <meta charset="UTF-8">
+<title>메인 페이지</title>
 <style>
   .navbar .btn {
     padding: 0.375rem 0.75rem;
@@ -56,11 +59,42 @@
       <form class="d-flex align-items-center">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
-        <button type="button" class="btn btn-info">로그인</button>
+        <!-- 로그인 버튼 -->
+        <button type="button" id="loginButton" class="btn btn-info">로그인</button>
       </form>
     </div>
   </div>
 </nav>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!-- 로그인 모달 -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">로그인</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- AJAX로 로드된 컨텐츠가 여기에 삽입됩니다 -->
+      </div> <!-- modal-body 끝 -->
+    </div> <!-- modal-content 끝 -->
+  </div> <!-- modal-dialog 끝 -->
+</div> <!-- modal 끝 -->
+
+<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'></script>
+
+<script>
+// 로그인 버튼 클릭 시 AJAX로 로그인 페이지 로드
+document.getElementById('loginButton').addEventListener('click', function() {
+  fetch('login.jsp') // login.jsp 경로에 맞게 수정
+    .then(response => response.text())
+    .then(data => {
+      document.querySelector('#loginModal .modal-body').innerHTML = data;
+      var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+      loginModal.show();
+    });
+});
+</script>
+
 </body>
+</html>
