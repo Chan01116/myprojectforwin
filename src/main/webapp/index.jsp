@@ -2,118 +2,304 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>메인 페이지</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <style>
- .nav-tabs .nav-link {
-    padding: 15px 30px; /* 탭의 크기 증가 */
-}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<meta charset="UTF-8">
+<style>
+  .nav-tabs .nav-link {
+    padding: 15px 30px;
+  }
 
-.tabs-overlay {
+  .tabs-overlay {
     position: absolute;
-    top: 50%; /* 세로 가운데 배치 */
-    left: 50%; /* 가로 가운데 배치 */
-    transform: translate(-50%, -50%); /* 가운데 정렬 */
-    background-color: rgba(255, 255, 255, 0.8); /* 반투명 배경 색상 */
-    border-radius: 10px; /* 탭의 모서리 둥글게 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
-}
-
-.tab-content {
-    position: absolute;
-    top: calc(50% + 50px); /* 세로 가운데 배치 */
-    left: 50%; /* 가로 가운데 배치 */
-    transform: translate(-50%, -90%); /* 가운데 정렬 */
-    background-color: rgba(255, 255, 255, 0.8); /* 반투명 배경 색상 */
-    border-radius: 10px; /* 탭의 모서리 둥글게 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
-}
-
-.search-bar {
-    margin-bottom: 20px;
-}
-
-body {
-    background-color: #f8f9fa; /* 부드러운 배경색 */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 폰트 스타일 */
-}
-
-#navbar {
-    background-color: #007bff; /* 네비게이션 바 배경색 */
-    top: calc(50% + 56px);
+    top: 50%; /* 이미지 위 가운데 배치 */
     left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 10px;
-    display: flex;
-    justify-content: space-between;
-}
+  }
 
-btn btn-info {
-    color: white; /* 링크 텍스트 색상 */
-    margin-right: 15px; /* 오른쪽 여백 */
-}
+  .tab-content {
+    margin-top: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+  }
 
-.login {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 10;
-}
-  </style>
+  body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative; /* 부모 요소에 상대 위치 설정 */
+    min-height: 100vh; /* 최소 높이 설정 */
+  }
+</style>
 </head>
 
 <body>
-  <!-- 로그인 버튼 -->
-  <div class="login">
-    <button type="button" class="btn btn-info">로그인</button>
-  </div>
 
-  <!-- 검색창 및 탭 -->
-  <div class="container position-relative">
-    <div class="search-bar">
-      <input type="text" placeholder="검색어를 입력하세요" />
-    </div>
-    <img src="https://www.rosenaviation.com/wp-content/uploads/2024/02/Longest-commercial-flights-Rosen-Aviation-scaled.jpeg" class="img-fluid" alt="">
-    <div class="tabs-overlay">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">바로예매</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">예약조회</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">셀프체크인</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="schedule-tab" data-bs-toggle="tab" data-bs-target="#schedule-tab-pane" type="button" role="tab" aria-controls="schedule-tab-pane" aria-selected="false">비행 시간표</button>
-        </li>
-      </ul>
-    </div>
+<%@ include file="/header/navbar.jsp" %>
+
+
+<div class="container mt-1 position-relative"> <!-- 컨텐츠에 여백 추가 -->
+  <img src="https://www.rosenaviation.com/wp-content/uploads/2024/02/Longest-commercial-flights-Rosen-Aviation-scaled.jpeg" class="img-fluid mt-1" alt="">
+  
+  <div class="tabs-overlay">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">바로예매</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">예약조회</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">셀프체크인</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="schedule-tab" data-bs-toggle="tab" data-bs-target="#schedule-tab-pane" type="button" role="tab" aria-controls="schedule-tab-pane" aria-selected="false">비행 시간표 조회</button>
+      </li>
+    </ul>
+    
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-        바로예약 넣기
+      <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab">
+       <div class="container mt-5">
+  <div class="booking-form bg-light p-4 rounded shadow">
+    <div class="form-header d-flex justify-content-between align-items-center mb-3">
+      
+      <div class="d-flex">
+        <label class="me-3"><input type="radio" name="ticketType" checked> 왕복</label>
+        <label class="me-3"><input type="radio" name="ticketType"> 편도</label>
+        <label><input type="radio" name="ticketType"> 다구간</label>
       </div>
-      <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-        예약조회 넣기  
+    </div>
+
+    <div class="form-content">
+      <div class="row mb-3">
+        <div class="col-md-5">
+          <label class="form-label">출발지</label>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="SEL">
+            <span class="input-group-text">서울</span>
+          </div>
+        </div>
+
+        <div class="col-md-2 text-center align-self-center">
+          <i class="bi bi-arrow-left-right"></i>
+        </div>
+
+        <div class="col-md-5">
+          <label class="form-label">도착지</label>
+          <input type="text" class="form-control" placeholder="도착지">
+        </div>
       </div>
-      <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-        셀프체크인 넣기  
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">출발일</label>
+          <input type="text" class="form-control" placeholder="가는 날 - 오는 날">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">탑승객</label>
+          <input type="text" class="form-control" placeholder="성인 1명">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">좌석 등급</label>
+          <select class="form-select">
+            <option>선택하세요</option>
+          </select>
+        </div>
       </div>
-      <div class="tab-pane fade" id="schedule-tab-pane" role="tabpanel" aria-labelledby="schedule-tab" tabindex="0">
-        비행 시간표넣기  
+
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" value="">
+        <label class="form-check-label">
+          가까운 날짜 함께 조회
+        </label>
+      </div>
+
+      <div class="d-grid gap-2 mt-4">
+        <button class="btn btn-dark">항공편 검색</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- 네비게이션 바 -->
-  <div id="navbar">
-    <a href="/board/noticeList.jsp">공지사항</a>
-    <a href="/booking/city.jsp">도시별 예약</a>
-    <a href="/booking/day.jsp">날짜별 예약</a>
-    <a href="/board/qnaList.jsp">문의사항</a>
+<style>
+  .booking-form {
+    max-width: 800px;
+    margin: auto;
+  }
+  .bi-arrow-left-right {
+    font-size: 24px;
+  }
+</style>
+      </div>
+      <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab">
+      <div class='container mt-5'>
+  <div class='booking-form bg-light p-4 rounded shadow'>
+    <div class='form-header d-flex justify-content-between align-items-center mb-3'>
+      
+    </div>
+
+    <div class='form-content'>
+      <div class='row mb-3'>
+        <div class='col-md-5'>
+          <label class='form-label'>예약번호또는 항공권번호</label>
+          <input type='text' class='form-control' placeholder='A1B2C3 또는 1801234567890'>
+        </div>
+
+        <div class='col-md-5'>
+          <label class='form-label'>출발일</label>
+          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
+        </div>
+      </div>
+
+      <div class='row mb-3'>
+        <div class='col-md-5'>
+          <label class='form-label'>승객 성</label>
+          <input type='text' class='form-control'>
+        </div>
+
+        <div class='col-md-5'>
+          <label class='form-label'>승객 이름</label>
+          <input type='text' class='form-control'>
+        </div>
+      </div>
+
+
+      <div class='d-grid gap-2 mt-4'>
+        <button class='btn btn-dark'>조회</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .booking-form {
+    max-width: 800px;
+    margin: auto;
+  }
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  .shadow {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
+</style>
+      </div>
+      <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab">
+       <div class='container mt-5'>
+  <div class='booking-form bg-light p-4 rounded shadow'>
+    <div class='form-header d-flex justify-content-between align-items-center mb-3'>
+      
+    </div>
+
+    <div class='form-content'>
+      <div class='row mb-3'>
+        <div class='col-md-5'>
+          <label class='form-label'>예약번호또는 항공권번호</label>
+          <input type='text' class='form-control' placeholder='A1B2C3 또는 1801234567890'>
+        </div>
+
+        <div class='col-md-5'>
+          <label class='form-label'>출발일 - d-day-4</label>
+          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
+        </div>
+      </div>
+
+      <div class='row mb-3'>
+        <div class='col-md-5'>
+          <label class='form-label'>승객 성</label>
+          <input type='text' class='form-control'>
+        </div>
+
+        <div class='col-md-5'>
+          <label class='form-label'>승객 이름</label>
+          <input type='text' class='form-control'>
+        </div>
+      </div>
+
+
+      <div class='d-grid gap-2 mt-4'>
+        <button class='btn btn-dark'>조회</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .booking-form {
+    max-width: 800px;
+    margin: auto;
+  }
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  .shadow {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
+</style>
+      </div>
+      <div class="tab-pane fade" id="schedule-tab-pane" role="tabpanel" aria-labelledby="schedule-tab">
+       <div class='container mt-5'>
+  <div class='schedule-form bg-light p-4 rounded shadow'>
+    <div class='form-header d-flex justify-content-between align-items-center mb-3'>
+      
+
+    <div class='form-content'>
+      <div class='row mb-3'>
+        <div class='col-md-5'>
+          <label class='form-label'>출발지</label>
+          <input type='text' class='form-control' placeholder='출발지 입력'>
+        </div>
+
+        <div class='col-md-5'>
+          <label class='form-label'>도착지</label>
+          <input type='text' class='form-control' placeholder='도착지 입력'>
+        </div>
+      </div>
+
+      <div class='row mb-3'>
+        <div class='col-md-5'>
+          <label class='form-label'>출발일</label>
+          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
+        </div>
+
+        <div class='col-md-5'>
+          <label class='form-label'>도착일</label>
+          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
+        </div>
+      </div>
+
+      <div class='d-grid gap-2 mt-4'>
+        <button class='btn btn-dark'>조회</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .schedule-form {
+    max-width: 800px;
+    margin: auto;
+  }
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  .shadow {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
+</style>
+      </div>
+    </div>
+    
   </div>
 
-  <!-- 프로모션 링크 -->
+</div>
+ <!-- 프로모션 링크 -->
   <div class="promo-img">
     <a href="/promo1"><img src="/images/promo1.jpg" alt="프로모션1" /></a>
   </div>
@@ -124,9 +310,5 @@ btn btn-info {
   <!-- 하단 저작권 -->
   <footer class="copyright">Copyright &copy; Chan</footer>
 
-  <!-- JavaScript -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
