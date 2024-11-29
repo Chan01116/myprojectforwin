@@ -43,7 +43,7 @@
     </div>
     
     <button class="btn btn-primary w-100 py-2 mb-2" type="submit">Sign in</button>
-    <button class="btn btn-secondary w-100 py-2" type="button">Sign Up</button>
+    <button class="btn btn-secondary w-100 py-2" type="button" onclick="location.href='<%=request.getContextPath()%>/member/memberJoin.aws'">Sign Up</button>
     
     <p class="mt-5 mb-3 text-muted">&copy; 2017–2024</p>
   </form>

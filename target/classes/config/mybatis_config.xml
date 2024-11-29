@@ -4,7 +4,7 @@
 <configuration> 
 <typeAliases>
  <typeAlias alias="mv" type="com.chan.aws0822.domain.MemberVo"/> <!-- alias = 타입이 기니까 이 이름으로 부르겠다 -->
-<typeAlias alias="bv" type="com.chan.aws0822.domain.BoardVo"/>
-<typeAlias alias="scri" type="com.chan.aws0822.domain.SearchCriteria"/>
+<!-- <typeAlias alias="bv" type="com.chan.aws0822.domain.BoardVo"/> -->
+<!-- <typeAlias alias="scri" type="com.chan.aws0822.domain.SearchCriteria"/> -->
 </typeAliases>
 </configuration>

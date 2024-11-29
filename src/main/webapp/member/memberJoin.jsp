@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, 그리고 Bootstrap 기여자들">
     <meta name="generator" content="Hugo 0.122.0">
-    <title>Signin Template · Bootstrap v5.3</title>
+    <title>회원가입</title>
 
     <link rel="canonical" href="https://getbootstrap.kr/docs/5.3/examples/sign-in/">
 
@@ -108,7 +108,126 @@
       }
     </style>
 
-    
+
+
+<script type="text/javascript">
+		function check(){
+	var fm = document.frm; // frm : form객체의 이름
+	const email = /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/i;
+	
+	 if (fm.memberid.value == ""){
+		 alert("아이디를 입력해주세요");
+		 fm.memberid.focus();
+		 return;
+	 }else if (fm.memberpassword.value == ""){
+		 alert("비밀번호를 입력해주세요");
+		 fm.memberpwd.focus();
+		 return;
+	 }else if (fm.memberpassword2.value == ""){
+		 alert("비밀번호확인을 입력해주세요");
+		 fm.memberpwd2.focus();
+		 return;
+	 }else if (fm.memberpassword.value !== fm.memberpassword2.value){
+		 fm.memberpassword2.value="";
+		 fm.memberpassword2.focus();
+		 alert("비밀번호가 일치하지 않습니다.");
+		 return;
+	 }else if (fm.membername.value == ""){
+		 alert("이름을 입력해주세요");
+		 fm.membername.focus();
+		 return;
+	 }else if (fm.memberemail.value == ""){
+		 alert("이메일을 입력해주세요");
+		 fm.memberemail.focus();
+		 return;
+	 }else if(email.test(fm.memberemail.value)==false){
+		 alert("이메일형식이 올바르지 않습니다.");
+		 fm.memberemail.value="";
+		 fm.memberemail.focus();
+		 return;
+	 }
+	 //alert("이동할 정보등록할 차례입니다.");
+	 
+	 var ans = confirm("저장하시겠습니까?");
+	 if(ans == true){
+		 
+		 
+		 //가상경로를 사용해서 쓸 예정  가짜경로 형식은 :  /기능/세부기능.aws
+		 fm.action = "<%=request.getContextPath()%>/member/memberJoinAction.aws";
+		 fm.method = "post";
+		 fm.submit();
+	 }
+	 return;  // 리턴값을 안쓰면 그냥 멈춤 종료
+ }
+ 
+
+	  
+	 /* if(flag == false){
+	 alert("취미를 1개이상 선택해주세요");
+	 return false; }*/
+ 
+	<%--  $(document).ready(function(){
+		 
+		 $("#btn").click(function(){
+			 //alert("중복체크버튼 클릭");
+			 let memberId = $("#memberid").val();
+			 if(memberId == ""){
+				 alert("아이디를 입력해 주세요");
+				 return;
+			 }
+			 
+			 
+			 $.ajax({
+				 type : "post",     //전송방식
+				 url : "<%=request.getContextPath()%>/member/memberIdCheck.aws",
+				 dataType : "json",     // json타입은 문서에서 {"키값" : "value값","키갑2" : "value값2"}
+				 data : {"memberId" : memberId },
+				 success : function(result){    // 결과가 넘어와서 성공했을 때 받는 영역
+				 	 
+					 //alert("전송성공 테스트");
+				 	 //alert("길이는"+result.length);
+				 	 //alert("cnt값은"+result.cnt);
+				 	 if(result.cnt == 0){
+				 		 alert("사용할수 있는 아이디입니다.");
+				 		$("#btn").val("Y");
+				 	 }else{
+				 		 alert("사용할수 없는 아이디입니다.");
+				 		$("#memberid").val("");  //입력한 아이디 지우기
+				 		 
+				 	 }
+				 	 
+				 
+				 },
+				 error : function(){   // 결과가 실패했을 때 받는 영역
+					 
+					 alert("전송실패 테스트");
+					 
+				 }
+				 
+				 
+			 });
+				 			 
+		 });
+		 
+	  }); --%>
+	 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
     <!-- Custom styles for this template -->
     <link href="sign-in.css" rel="stylesheet">
   </head>
@@ -129,95 +248,70 @@
       </symbol>
     </svg>
 
-    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
-              id="bd-theme"
-              type="button"
-              aria-expanded="false"
-              data-bs-toggle="dropdown"
-              aria-label="Toggle theme (auto)">
-        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
-        <span class="visually-hidden" id="bd-theme-text">테마 변경</span>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-            라이트
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
-            다크
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#circle-half"></use></svg>
-            시스템
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-      </ul>
-    </div>
+    
 
     
 <main class="form-signin w-100 m-auto">
-  <form>
+  <form name = "frm">
     <h1 class="h3 mb-3 fw-normal">Sign Up</h1>
-     <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">ID</label>
+    
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="floatingInputId" placeholder="아이디를 입력하세요" name="memberid">
+      <label for="floatingInputId">ID</label>
     </div>
-    <p></p>
-     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Password</label>
+    
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호를 입력하세요" name="memberpassword">
+      <label for="floatingPassword">Password</label>
     </div>
-    <p></p>
-     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Password confirm</label>
+    
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" id="floatingPasswordConfirm" placeholder="비밀번호 확인" name="memberpassword2">
+      <label for="floatingPasswordConfirm">Password Confirm</label>
     </div>
-    <p></p>
-     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
+    
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com" name="memberemail">
+      <label for="floatingEmail">Email address</label>
     </div>
-    <p></p>
-     <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">이름</label>
+    
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="floatingName" placeholder="이름을 입력하세요" name="membername">
+      <label for="floatingName">이름</label>
     </div>
-    <p></p>
-     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">생년월일</label>
+    
+    <div class="form-floating mb-3">
+      <input type="date" class="form-control" id="floatingBirthDate" name ="memberbirthday">
+      <label for="floatingBirthDate">생년월일</label>
     </div>
-    <p></p>
-     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">핸드폰번호</label>
+    
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="floatingPhoneNumber" placeholder="핸드폰 번호를 입력하세요" name ="memberphone">
+      <label for="floatingPhoneNumber">핸드폰번호</label>
     </div>
-    <p></p>
-    <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">주소</label>
-    </div>
-    <p></p>
-     <div class="form-floating">
-      <input type="hidden">
-      <label for="floatingInput"></label>
-    </div>
+    
+    
 
+    <!-- 성별 선택 -->
+    <div class="mb-3">
+  <label>성별</label><br>
+  <input type="radio" id="genderMale" name="gender" value="Male">
+  <label for="genderMale">남성</label><br>
+  <input type="radio" id="genderFemale" name="gender" value="Female">
+  <label for="genderFemale">여성</label><br>
+  <input type="radio" id="genderOther" name="gender" value="Other">
+  <label for="genderOther">기타</label>
+</div>
 
-    <button class="btn btn-primary w-100 py-2" type="submit">저장하기</button>
-    <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
+   <!-- 저장 버튼 -->
+   <button class='btn btn-primary w-100 py-2' type='button' onclick = "check();">저장하기</button>
+
+   <!-- Footer -->
+   <p class='mt-5 mb-3 text-body-secondary'>&copy; 2024</p>
   </form>
 </main>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     </body>
