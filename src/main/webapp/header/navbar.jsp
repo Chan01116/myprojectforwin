@@ -86,7 +86,7 @@
 <script>
 // 로그인 버튼 클릭 시 AJAX로 로그인 페이지 로드
 document.getElementById('loginButton').addEventListener('click', function() {
-  fetch('login.jsp') // login.jsp 경로에 맞게 수정
+  fetch('memberLogin.aws') // login.jsp 경로에 맞게 수정
     .then(response => response.text())
     .then(data => {
       document.querySelector('#loginModal .modal-body').innerHTML = data;
