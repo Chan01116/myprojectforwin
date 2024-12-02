@@ -2,8 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
 <meta charset="UTF-8">
 <style>
   .nav-tabs .nav-link {
@@ -34,6 +32,26 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     position: relative; /* 부모 요소에 상대 위치 설정 */
     min-height: 100vh; /* 최소 높이 설정 */
+  }
+  
+  .booking-form {
+    max-width: 800px;
+    margin: auto;
+  }
+  .bi-arrow-left-right {
+    font-size: 24px;
+  }  
+  
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  .shadow {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
+  
+  .schedule-form {
+    max-width: 800px;
+    margin: auto;
   }
 </style>
 </head>
@@ -66,236 +84,189 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab">
        <div class="container mt-5">
-  <div class="booking-form bg-light p-4 rounded shadow">
-    <div class="form-header d-flex justify-content-between align-items-center mb-3">
+  		 <div class="booking-form bg-light p-4 rounded shadow">
+    		<div class="form-header d-flex justify-content-between align-items-center mb-3">
       
-      <div class="d-flex">
-        <label class="me-3"><input type="radio" name="ticketType" checked> 왕복</label>
-        <label class="me-3"><input type="radio" name="ticketType"> 편도</label>
-        <label><input type="radio" name="ticketType"> 다구간</label>
+		      <div class="d-flex">
+		        <label class="me-3"><input type="radio" name="ticketType" checked> 왕복</label>
+		        <label class="me-3"><input type="radio" name="ticketType"> 편도</label>
+		        <label><input type="radio" name="ticketType"> 다구간</label>
+		      </div>
+    		</div>
+
+		    <div class="form-content">
+		      <div class="row mb-3">
+		        <div class="col-md-5">
+		          <label class="form-label">출발지</label>
+		          <div class="input-group">
+	                <input type="text" class="form-control" placeholder="SEL">
+	                <span class="input-group-text">서울</span>
+	              </div>
+	            </div>
+
+	            <div class="col-md-2 text-center align-self-center">
+	              <i class="bi bi-arrow-left-right"></i>
+	            </div>
+
+	            <div class="col-md-5">
+	              <label class="form-label">도착지</label>
+	              <input type="text" class="form-control" placeholder="도착지">
+	            </div>
+      		  </div>
+
+		      <div class="row mb-3">
+		        <div class="col-md-6">
+		          <label class="form-label">출발일</label>
+		          <input type="text" class="form-control" placeholder="가는 날 - 오는 날">
+		        </div>
+		
+		        <div class="col-md-3">
+		          <label class="form-label">탑승객</label>
+		          <input type="text" class="form-control" placeholder="성인 1명">
+		        </div>
+		
+		        <div class="col-md-3">
+		          <label class="form-label">좌석 등급</label>
+		          <select class="form-select">
+		            <option>선택하세요</option>
+		          </select>
+		        </div>
+		       </div>
+
+		       <div class="d-grid gap-2 mt-4 row">
+		         <button class="btn btn-dark">항공편 검색</button>
+		       </div>
+		    </div>
+		    
+		    
+		  </div>
+		</div>
+
       </div>
-    </div>
-
-    <div class="form-content">
-      <div class="row mb-3">
-        <div class="col-md-5">
-          <label class="form-label">출발지</label>
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="SEL">
-            <span class="input-group-text">서울</span>
-          </div>
-        </div>
-
-        <div class="col-md-2 text-center align-self-center">
-          <i class="bi bi-arrow-left-right"></i>
-        </div>
-
-        <div class="col-md-5">
-          <label class="form-label">도착지</label>
-          <input type="text" class="form-control" placeholder="도착지">
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="form-label">출발일</label>
-          <input type="text" class="form-control" placeholder="가는 날 - 오는 날">
-        </div>
-
-        <div class="col-md-3">
-          <label class="form-label">탑승객</label>
-          <input type="text" class="form-control" placeholder="성인 1명">
-        </div>
-
-        <div class="col-md-3">
-          <label class="form-label">좌석 등급</label>
-          <select class="form-select">
-            <option>선택하세요</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" value="">
-        <label class="form-check-label">
-          가까운 날짜 함께 조회
-        </label>
-      </div>
-
-      <div class="d-grid gap-2 mt-4">
-        <button class="btn btn-dark">항공편 검색</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<style>
-  .booking-form {
-    max-width: 800px;
-    margin: auto;
-  }
-  .bi-arrow-left-right {
-    font-size: 24px;
-  }
-</style>
-      </div>
+      
       <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab">
-      <div class='container mt-5'>
-  <div class='booking-form bg-light p-4 rounded shadow'>
-    <div class='form-header d-flex justify-content-between align-items-center mb-3'>
+        <div class='container mt-5'>
+  		  <div class='booking-form bg-light p-4 rounded shadow'>
+    		<div class='form-header d-flex justify-content-between align-items-center mb-3'>
       
-    </div>
+    	    </div>
 
-    <div class='form-content'>
-      <div class='row mb-3'>
-        <div class='col-md-5'>
-          <label class='form-label'>예약번호또는 항공권번호</label>
-          <input type='text' class='form-control' placeholder='A1B2C3 또는 1801234567890'>
-        </div>
+	        <div class='form-content'>
+	          <div class='row mb-3'>
+	            <div class='col-md-5'>
+	              <label class='form-label'>예약번호또는 항공권번호</label>
+	              <input type='text' class='form-control' placeholder='A1B2C3 또는 1801234567890'>
+	            </div>
 
-        <div class='col-md-5'>
-          <label class='form-label'>출발일</label>
-          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
-        </div>
+		        <div class='col-md-5'>
+		          <label class='form-label'>출발일</label>
+		          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
+		        </div>
+		      </div>
+
+		      <div class='row mb-3'>
+		        <div class='col-md-5'>
+		          <label class='form-label'>승객 성</label>
+		          <input type='text' class='form-control'>
+		        </div>
+		
+		        <div class='col-md-5'>
+		          <label class='form-label'>승객 이름</label>
+		          <input type='text' class='form-control'>
+		        </div>
+		      </div>
+		
+		      <div class='d-grid gap-2 mt-4'>
+		        <button class='btn btn-dark'>조회</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
       </div>
-
-      <div class='row mb-3'>
-        <div class='col-md-5'>
-          <label class='form-label'>승객 성</label>
-          <input type='text' class='form-control'>
-        </div>
-
-        <div class='col-md-5'>
-          <label class='form-label'>승객 이름</label>
-          <input type='text' class='form-control'>
-        </div>
-      </div>
-
-
-      <div class='d-grid gap-2 mt-4'>
-        <button class='btn btn-dark'>조회</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<style>
-  .booking-form {
-    max-width: 800px;
-    margin: auto;
-  }
-  .bg-light {
-    background-color: #f8f9fa !important;
-  }
-  .shadow {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-  }
-</style>
-      </div>
+            
       <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab">
        <div class='container mt-5'>
-  <div class='booking-form bg-light p-4 rounded shadow'>
-    <div class='form-header d-flex justify-content-between align-items-center mb-3'>
-      
-    </div>
+	     <div class='booking-form bg-light p-4 rounded shadow'>
+	        <div class='form-header d-flex justify-content-between align-items-center mb-3'>
+	      
+	        </div>
+  
+		    <div class='form-content'>
+		      <div class='row mb-3'>
+		        <div class='col-md-5'>
+		          <label class='form-label'>예약번호또는 항공권번호</label>
+		          <input type='text' class='form-control' placeholder='A1B2C3 또는 1801234567890'>
+		        </div>
+		
+		        <div class='col-md-5'>
+		          <label class='form-label'>출발일 - d-day-4</label>
+		          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
+		        </div>
+		      </div>
+		
+		      <div class='row mb-3'>
+		        <div class='col-md-5'>
+		          <label class='form-label'>승객 성</label>
+		          <input type='text' class='form-control'>
+		        </div>
+		
+		        <div class='col-md-5'>
+		          <label class='form-label'>승객 이름</label>
+		          <input type='text' class='form-control'>
+		        </div>
+		      </div>
 
-    <div class='form-content'>
-      <div class='row mb-3'>
-        <div class='col-md-5'>
-          <label class='form-label'>예약번호또는 항공권번호</label>
-          <input type='text' class='form-control' placeholder='A1B2C3 또는 1801234567890'>
-        </div>
 
-        <div class='col-md-5'>
-          <label class='form-label'>출발일 - d-day-4</label>
-          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
-        </div>
+      		  <div class='d-grid gap-2 mt-4'>
+        		<button class='btn btn-dark'>조회</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
       </div>
-
-      <div class='row mb-3'>
-        <div class='col-md-5'>
-          <label class='form-label'>승객 성</label>
-          <input type='text' class='form-control'>
-        </div>
-
-        <div class='col-md-5'>
-          <label class='form-label'>승객 이름</label>
-          <input type='text' class='form-control'>
-        </div>
-      </div>
-
-
-      <div class='d-grid gap-2 mt-4'>
-        <button class='btn btn-dark'>조회</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<style>
-  .booking-form {
-    max-width: 800px;
-    margin: auto;
-  }
-  .bg-light {
-    background-color: #f8f9fa !important;
-  }
-  .shadow {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-  }
-</style>
-      </div>
+            
       <div class="tab-pane fade" id="schedule-tab-pane" role="tabpanel" aria-labelledby="schedule-tab">
        <div class='container mt-5'>
-  <div class='schedule-form bg-light p-4 rounded shadow'>
-    <div class='form-header d-flex justify-content-between align-items-center mb-3'>
+		  <div class='schedule-form bg-light p-4 rounded shadow'>
+		    <div class='form-header d-flex justify-content-between align-items-center mb-3'>
+		    
+		    </div>
+		      
+		    <div class='form-content'>
+		      <div class='row mb-3'>
+		        <div class='col-md-5'>
+		          <label class='form-label'>출발지</label>
+		          <input type='text' class='form-control' placeholder='출발지 입력'>
+		        </div>
+		
+		        <div class='col-md-5'>
+		          <label class='form-label'>도착지</label>
+		          <input type='text' class='form-control' placeholder='도착지 입력'>
+		        </div>
+		      </div>
+		
+		      <div class='row mb-3'>
+		        <div class='col-md-5'>
+		          <label class='form-label'>출발일</label>
+		          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
+		        </div>
+		
+		        <div class='col-md-5'>
+		          <label class='form-label'>도착일</label>
+		          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
+		        </div>
+		      </div>
+		
+		      <div class='d-grid gap-2 mt-4'>
+		        <button class='btn btn-dark'>조회</button>
+		      </div>
+		    </div>
+		    
+		  </div>
+		</div>
+      </div>
       
-
-    <div class='form-content'>
-      <div class='row mb-3'>
-        <div class='col-md-5'>
-          <label class='form-label'>출발지</label>
-          <input type='text' class='form-control' placeholder='출발지 입력'>
-        </div>
-
-        <div class='col-md-5'>
-          <label class='form-label'>도착지</label>
-          <input type='text' class='form-control' placeholder='도착지 입력'>
-        </div>
-      </div>
-
-      <div class='row mb-3'>
-        <div class='col-md-5'>
-          <label class='form-label'>출발일</label>
-          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
-        </div>
-
-        <div class='col-md-5'>
-          <label class='form-label'>도착일</label>
-          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
-        </div>
-      </div>
-
-      <div class='d-grid gap-2 mt-4'>
-        <button class='btn btn-dark'>조회</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<style>
-  .schedule-form {
-    max-width: 800px;
-    margin: auto;
-  }
-  .bg-light {
-    background-color: #f8f9fa !important;
-  }
-  .shadow {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-  }
-</style>
-      </div>
+      
     </div>
     
   </div>

@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/chan/aws0822/domain/Criteria.java=UTF-8
+encoding//src/main/java/com/chan/aws0822/domain/PageMaker.java=UTF-8
+encoding//src/main/java/com/chan/aws0822/domain/SearchCriteria.java=UTF-8
 encoding//src/main/webapp/board/noticeList.jsp=UTF-8
 encoding//src/main/webapp/booking/day.jsp=UTF-8
 encoding//src/main/webapp/booking/seat.jsp=UTF-8

@@ -29,7 +29,7 @@ public class MemberController {
    
     @RequestMapping(value = "memberLogin.aws", method = RequestMethod.GET)
     public String memberLogin() {
-    	logger.info("멤버에컨트롤러 멤버로그인");
+    	//logger.info("멤버에컨트롤러 멤버로그인");
         // memberLogin.jsp로 이동
         return "/member/memberLogin";
     }
@@ -43,8 +43,11 @@ public class MemberController {
 			@RequestParam("memberpassword") String memberpassword,
 			RedirectAttributes rttr,
 			HttpSession session
-			) {		
-    	//System.out.println("로그인액션들어옵니까?");
+			) {
+    	
+    	
+    	
+    	System.out.println("로그인액션들어옵니까?");
 		MemberVo mv = memberService.memberLoginCheck(memberid);
 		//저장된 비밀번호를 가져온다
 		
@@ -132,7 +135,17 @@ public class MemberController {
 		return path;
 	}
     
-    
+    @RequestMapping(value = "memberLogout.aws",method = RequestMethod.GET)
+	public String memberLogout(HttpSession session) {
+		
+		//logger.info("memberLogout들어옴");
+		session.removeAttribute("midx");
+		session.removeAttribute("memberName");
+		session.removeAttribute("memberId");
+		session.invalidate();
+				
+		return "redirect:/";
+	}
     
 
 

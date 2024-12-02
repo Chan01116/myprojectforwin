@@ -25,35 +25,33 @@
 	<beans:property name="maxUploadSize" value="10485760" />	
 	</beans:bean>
 		
-	<!-- <beans:bean id = "uploadPath" class = "java.lang.String">
+	<beans:bean id = "uploadPath" class = "java.lang.String">
 		<beans:constructor-arg value ="D:/dev/springUpload"></beans:constructor-arg>
-	</beans:bean> -->
+	</beans:bean>
 	
-	<!--
-<beans:bean id="loginInterceptor" class="com.myaws.myapp.interceptor.LoginInterceptor">
-</beans:bean>
-
-<beans:bean id="authInterceptor" class="com.myaws.myapp.interceptor.AuthInterceptor">
-</beans:bean>
-
-<interceptors>
-    <interceptor>
-        <mapping path="/member/memberLoginAction.aws"/>
-        <beans:ref bean="loginInterceptor"/>
-    </interceptor>
-    <interceptor>
-        <mapping path="/member/memberList.aws"/>
-        <mapping path="/board/boardWrite.aws"/>
-        <mapping path="/board/boardWriteAction.aws"/>
-        <mapping path="/board/boardModify.aws"/>
-        <mapping path="/board/boardModifyAction.aws"/>
-        <mapping path="/board/boardDeleteAction.aws"/>
-        <mapping path="/board/boardReply.aws"/>
-        <mapping path="/board/boardReplyAction.aws"/>
-        <beans:ref bean="authInterceptor"/>
-    </interceptor>
-</interceptors>
--->
+	<!-- <beans:bean id = "loginInterceptor" class = "com.myaws.myapp.interceptor.LoginInterceptor">
+	</beans:bean>
+	 -->
+<!-- 	<beans:bean id = "authInterceptor" class = "com.myaws.myapp.interceptor.AuthInterceptor">
+	</beans:bean>	
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/memberLoginAction.aws"/>
+			<beans:ref bean ="loginInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/member/memberList.aws"/>
+			<mapping path="/board/boardWrite.aws"/>
+			<mapping path="/board/boardWriteAction.aws"/>
+			<mapping path="/board/boardModify.aws"/>
+			<mapping path="/board/boardModifyAction.aws"/>
+			<mapping path="/board/boardDeleteAction.aws"/>
+			<mapping path="/board/boardReply.aws"/>
+			<mapping path="/board/boardReplyAction.aws"/>
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+	</interceptors> -->
 	
 		
 	<context:component-scan base-package="com.chan.aws0822.controller" />

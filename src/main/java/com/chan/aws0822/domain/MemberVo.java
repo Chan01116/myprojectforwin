@@ -12,12 +12,18 @@ public class MemberVo {
 	private String memberbirthday;
 	private String delyn;
 	private String ridx;
+	private String admin;
 	
 	
 	
 	
 	
-	
+	public String getAdmin() {
+		return admin;
+	}
+	public void setAdmin(String admin) {
+		this.admin = admin;
+	}
 	public String getMembergender() {
 		return membergender;
 	}

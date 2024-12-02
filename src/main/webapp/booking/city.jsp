@@ -3,6 +3,7 @@
 <html>
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/resources/js/index.global.js"></script>
 <meta charset="UTF-8">
 <title>도시별 항공편 조회</title>
 <style>
@@ -119,7 +120,7 @@ function displayFlights(departureCity, arrivalCity) {
 }
 </script>
 
-<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'></script>
+
 
 </body>
 </html>

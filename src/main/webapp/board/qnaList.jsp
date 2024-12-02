@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, 그리고 Bootstrap 기여자들">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Offcanvas navbar template · Bootstrap v5.1</title>
+    <title>건의사항 리스트</title>
 
     <link rel="canonical" href="https://getbootstrap.kr/docs/5.1/examples/offcanvas-navbar/">
 
@@ -72,7 +72,7 @@
 
     </div>
     <small class="d-block text-end mt-3">
-      <a href="#">글쓰기</a>
+      <a href="<%=request.getContextPath()%>/board/qnaWrite.aws">글쓰기</a>
     </small>
   </div>
 
