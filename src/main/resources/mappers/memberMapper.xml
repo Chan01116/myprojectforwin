@@ -4,13 +4,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
+
 <mapper namespace="com.chan.aws0822.persistance.MemberMapper">
 
-<insert id="memberInsert" parameterType = "mv">
- insert into member(memberid,memberpassword,membername,membergender,memberbirthday,memberphone,memberemail,ridx)
- values(#{memberid},#{memberpassword},#{membername},#{membergender},#{memberbirthday},#{memberphone},#{memberemail},#{ridx})
+<insert id="memberInsert" parameterType="mv">
+    INSERT INTO member (memberid, memberpassword, membername, membergender, memberbirthday, memberphone, memberemail, ridx, membercreatday)
+    VALUES (#{memberid}, #{memberpassword}, #{membername}, #{membergender}, #{memberbirthday}, #{memberphone}, #{memberemail}, #{ridx}, NOW())
 </insert>
-
+<select id="memberCheckRidx" parameterType="string" resultType="int">
+    SELECT COUNT(*) FROM member WHERE ridx = #{ridx}
+</select>
 
 <select id = "memberIdCheck" parameterType = "String" resultType = "int">
 SELECT count(*) as cnt FROM member WHERE memberid = #{memberId}

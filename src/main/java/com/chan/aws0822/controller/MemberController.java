@@ -34,6 +34,65 @@ public class MemberController {
         return "/member/memberLogin";
     }
     
+    @RequestMapping(value="memberLoginAction.aws",method=RequestMethod.POST)
+	public String memberLoginAction(
+			
+			
+			
+			@RequestParam("memberid") String memberid, 
+			@RequestParam("memberpassword") String memberpassword,
+			RedirectAttributes rttr,
+			HttpSession session
+			) {		
+    	//System.out.println("로그인액션들어옵니까?");
+		MemberVo mv = memberService.memberLoginCheck(memberid);
+		//저장된 비밀번호를 가져온다
+		
+		String path = "";
+		if (mv != null) {  //객체값이 있으면
+			String reservedPassword = mv.getMemberpassword(); 
+		
+			if(bCryptPasswordEncoder.matches(memberpassword, reservedPassword)) {
+				System.out.println("비밀번호 일치");
+				rttr.addAttribute("midx", mv.getMidx());
+				rttr.addAttribute("memberId", mv.getMemberid());
+				rttr.addAttribute("memberName", mv.getMembername());
+				
+				//logger.info("saveUrl===>"+session.getAttribute("saveUrl"));
+				
+				if(session.getAttribute("saveUrl") != null) {
+					path ="redirect:"+session.getAttribute("saveUrl").toString();
+				}else {
+				
+					path ="redirect:/";
+				}
+				
+				
+			}else {
+				
+				//rttr.addAttribute("midx", "");
+				//rttr.addAttribute("memberId", "");
+				//rttr.addAttribute("memberName", "");
+				rttr.addFlashAttribute("msg", "아이디/비밀번호를 확인해주세요.");
+				path = "redirect:/member/memberLogin.aws";
+			}		
+		}else {
+			//rttr.addAttribute("midx", "");
+			//rttr.addAttribute("memberId", "");
+			//rttr.addAttribute("memberName", "");    //위험해서 안씀
+			rttr.addFlashAttribute("msg", "해당하는 아이디가 없습니다.");  //플래쉬는 한번만
+			path = "redirect:/member/memberLogin.aws";
+		}		
+		//회원정보를  세션에 담는다
+				
+		return path;
+	}
+    
+    
+    
+    
+    
+    
     @RequestMapping(value = "memberJoin.aws",method = RequestMethod.GET)
 	public String memberJoin() {
 		

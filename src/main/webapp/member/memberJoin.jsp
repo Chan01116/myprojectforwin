@@ -294,13 +294,12 @@
 
     <!-- 성별 선택 -->
     <div class="mb-3">
-  <label>성별</label><br>
-  <input type="radio" id="genderMale" name="gender" value="Male">
-  <label for="genderMale">남성</label><br>
-  <input type="radio" id="genderFemale" name="gender" value="Female">
-  <label for="genderFemale">여성</label><br>
-  <input type="radio" id="genderOther" name="gender" value="Other">
-  <label for="genderOther">기타</label>
+  <input type="radio" id="genderMale" name="membergender" value="Male">
+<label for="genderMale">남성</label><br>
+<input type="radio" id="genderFemale" name="membergender" value="Female">
+<label for="genderFemale">여성</label><br>
+<input type="radio" id="genderOther" name="membergender" value="Other">
+<label for="genderOther">기타</label>
 </div>
 
    <!-- 저장 버튼 -->

@@ -34,26 +34,26 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#">여기에 CI</a>
+    <a class="navbar-brand" href="/">여기에 CI</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">공지사항</a>
+          <a class="nav-link" href="board/noticeList.aws">공지사항</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             예약하기
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">도시별 예약</a></li>
-            <li><a class="dropdown-item" href="#">날짜별 예약</a></li>
+            <li><a class="dropdown-item" href="booking/city.aws">도시별 예약</a></li>
+            <li><a class="dropdown-item" href="booking/day.aws">날짜별 예약</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">문의사항</a>
+          <a class="nav-link" href="board/qnaList.aws">문의사항</a>
         </li>
       </ul>
       <form class="d-flex align-items-center">
@@ -92,9 +92,25 @@ document.getElementById('loginButton').addEventListener('click', function() {
       document.querySelector('#loginModal .modal-body').innerHTML = data;
       var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
       loginModal.show();
-    });
+    
+const scripts = document.querySelectorAll('script');
+scripts.forEach(script => {
+    const newScript = document.createElement('script');
+    if (script.src) {
+        newScript.src = script.src;
+    } else {
+        newScript.textContent = script.textContent;
+    }
+    document.body.appendChild(newScript);
+    document.body.removeChild(newScript); // 실행 후 제거
 });
+})
+.catch(error => console.error(error));
+});
+
+
 </script>
+
 
 </body>
 </html>

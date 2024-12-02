@@ -11,7 +11,7 @@ public class MemberVo {
 	private String membercreatday;
 	private String memberbirthday;
 	private String delyn;
-	private int ridx;
+	private String ridx;
 	
 	
 	
@@ -82,10 +82,10 @@ public class MemberVo {
 	public void setDelyn(String delyn) {
 		this.delyn = delyn;
 	}
-	public int getRidx() {
+	public String getRidx() {
 		return ridx;
 	}
-	public void setRidx(int ridx) {
+	public void setRidx(String ridx) {
 		this.ridx = ridx;
 	}
 	
