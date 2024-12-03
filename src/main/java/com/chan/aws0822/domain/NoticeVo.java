@@ -1,6 +1,6 @@
 package com.chan.aws0822.domain;
 
-public class BoardVo {
+public class NoticeVo {
 	private int nidx;
 	private String ntitle;
 	private String ncontents;

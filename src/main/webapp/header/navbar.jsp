@@ -83,7 +83,6 @@ body {
 		    <c:otherwise>
 		        <!-- 로그인 버튼 -->
 		         <button type="button" id="loginButton" class="btn btn-info">로그인</button>
-		        ${sessionScope.memberName}&nbsp;<a href='${pageContext.request.contextPath}/member/memberLogout.aws' class='btn btn-info'>로그아웃</a>
 		    </c:otherwise>
 		</c:choose>
 
@@ -149,7 +148,28 @@ function check() {
 	  return;
 }
 
-
+function qnawriteCheck(){
+	let fm = document.forms['frm'];
+    
+    if (fm.qtitle.value === "") {
+        alert("제목을 입력해주세요");
+        fm.qtitle.focus();
+        return;
+    } else if (tinymce.get('exampleFormControlTextarea1').getContent() === "") {
+        alert("내용을 입력해주세요");
+        tinymce.get('exampleFormControlTextarea1').focus();
+        return;
+    }
+    
+    let ans = confirm("저장하시겠습니까?");
+	  
+	if(ans) {
+		fm.action ="${pageContext.request.contextPath}/board/qnaWriteAction.aws";
+		fm.method = "post";
+		fm.enctype = "multipart/form-data";
+		fm.submit();
+	}
+}
 
 
 

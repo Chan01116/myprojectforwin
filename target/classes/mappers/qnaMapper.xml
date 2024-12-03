@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스용 문서 타입이다 -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chan.aws0822.persistance.QnaMapper">
+<sql id="search">
+<if test="searchType != null and searchType.equals('writer')">
+	and writer like concat('%',#{keyword},'%')
+</if>
+<if test="searchType != null and searchType.equals('qtitle')">
+	and qtitle like concat('%',#{keyword},'%')
+</if>
+</sql>
+
+<update id="qnaUpdate" parameterType="qv">
+	update qna set qtitle = #{qtitle}, qcontents=#{qcontents},writer=#{writer},modifyday=now(),filename=#{uploadedFilename} where qidx=#{qidx} and password =#{password} and midx = #{midx}<!-- Vo에 있는 이름과 동일해야함 -->
+</update>
+
+<update id="qnaDelete" parameterType="HashMap">
+	update qna set delyn='Y', modifyday=now() where qidx=#{qidx} and midx=#{midx} and password=#{password} 
+</update>
+
+<update id="qnaViewCntUpdate" parameterType = "int">
+	UPDATE qna SET viewcnt = viewcnt+1 WHERE qidx= #{qidx}
+</update>
+
+<select id="qnaSelectOne" parameterType = "int" resultType="qv">
+	SELECT * FROM qna WHERE delyn = 'N' and qidx = #{qidx}
+</select>
+
+<insert id="qnaInsert" parameterType="qv">
+	<selectKey keyProperty = "qidx" resultType = "int" order ="AFTER">
+	select max(qidx) as qidx from qna
+	</selectKey>
+INSERT INTO qna(qidx,qtitle,qcontents,writer,writeday,recom,viewcnt,filename,midx)
+	value(#{qidx},#{qtitle},#{qcontents},#{writer},NOW(),#{recom},#{viewcnt},#{uploadedFilename},#{midx})<!-- Vo에 있는 이름과 동일해야함 -->
+</insert>
+
+<select id="qnaTotalCount" parameterType = "scri" resultType="int">
+	SELECT COUNT(*) as cnt FROM qna WHERE delyn = 'N'
+<include refid="search"/>
+</select>
+
+<select id="qnaSelectAll" parameterType = "HashMap" resultType="qv">
+	 select * from qna where delyn='N' 
+ <include refid="search"/>
+	 order by qidx desc limit #{startPageNum},#{perPageNum}
+</select>
+
+
+</mapper>

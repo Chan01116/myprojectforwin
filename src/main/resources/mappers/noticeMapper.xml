@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스용 문서 타입이다 -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chan.aws0822.persistance.NoticeMapper">
+<sql id="search">
+<if test="searchType != null and searchType.equals('writer')">
+	and writer like concat('%',#{keyword},'%')
+</if>
+<if test="searchType != null and searchType.equals('ntitle')">
+	and ntitle like concat('%',#{keyword},'%')
+</if>
+</sql>
+
+<update id="noticeUpdate" parameterType="nv">
+	update notice set ntitle = #{ntitle}, ncontents=#{ncontents},writer=#{writer},modifyday=now(),filename=#{uploadedFilename} where nidx=#{nidx} and password =#{password} and midx = #{midx}<!-- Vo에 있는 이름과 동일해야함 -->
+</update>
+
+<update id="notcieDelete" parameterType="HashMap">
+	update notice set delyn='Y', modifyday=now() where nidx=#{nidx} and midx=#{midx} and password=#{password} 
+</update>
+
+<update id="noticeViewCntUpdate" parameterType = "int">
+	UPDATE notice SET viewcnt = viewcnt+1 WHERE nidx= #{nidx}
+</update>
+
+<select id="noticeSelectOne" parameterType = "int" resultType="nv">
+	SELECT * FROM notice WHERE delyn = 'N' and nidx = #{nidx}
+</select>
+
+<insert id="noticeInsert" parameterType="nv">
+	<selectKey keyProperty = "nidx" resultType = "int" order ="AFTER">
+	select max(nidx) as nidx from notice
+	</selectKey>
+INSERT INTO notice(nidx,ntitle,ncontents,writer,writeday,recom,viewcnt,filename,midx)
+	value(#{nidx},#{ntitle},#{ncontents},#{writer},NOW(),#{recom},#{viewcnt},#{uploadedFilename},#{midx})<!-- Vo에 있는 이름과 동일해야함 -->
+</insert>
+
+<select id="noticeTotalCount" parameterType = "scri" resultType="int">
+	SELECT COUNT(*) as cnt FROM notice WHERE delyn = 'N'
+<include refid="search"/>
+</select>
+
+<select id="noticeSelectAll" parameterType = "HashMap" resultType="nv">
+	 select * from notice where delyn='N' 
+ <include refid="search"/>
+	 order by nidx desc limit #{startPageNum},#{perPageNum}
+</select>
+
+
+</mapper>

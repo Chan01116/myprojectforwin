@@ -9,8 +9,8 @@
 <mapper namespace="com.chan.aws0822.persistance.MemberMapper">
 
 <insert id="memberInsert" parameterType="mv">
-    INSERT INTO member (memberid, memberpassword, membername, membergender, memberbirthday, memberphone, memberemail, ridx, membercreatday,admin)
-    VALUES (#{memberid}, #{memberpassword}, #{membername}, #{membergender}, #{memberbirthday}, #{memberphone}, #{memberemail}, #{ridx}, NOW(),#{admin})
+    INSERT INTO member (memberid, memberpassword, membername, membergender, memberbirthday, memberphone, memberemail, ridx, membercreatday)
+    VALUES (#{memberid}, #{memberpassword}, #{membername}, #{membergender}, #{memberbirthday}, #{memberphone}, #{memberemail}, #{ridx}, NOW())
 </insert>
 <select id="memberCheckRidx" parameterType="string" resultType="int">
     SELECT COUNT(*) FROM member WHERE ridx = #{ridx}

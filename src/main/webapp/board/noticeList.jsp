@@ -7,34 +7,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>공지사항 목록</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .notice-item {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.2s;
+        }
+        .notice-item:hover {
+            background-color: #f8f9fa;
+        }
+        .notice-title {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
 <%@ include file="/header/navbar.jsp" %>
 
-<main class="container">
-    <div class="my-3 p-3 bg-body rounded shadow-sm">
+<main class="container mt-5">
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
         <h6 class="border-bottom pb-2 mb-0">공지사항</h6>
 
         <!-- 글 목록 출력 -->
-        <c:forEach items="${blist}" var="bv">
-            <div class="d-flex text-muted pt-3">
-                <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><text>32x32</text></svg>
-                <p class="pb-3 mb-0 small lh-sm border-bottom">
-                    <strong class="d-block text-gray-dark">${bv.writer}</strong>
-                    <a href="${pageContext.request.contextPath}/board/boardContents.aws?bidx=${bv.bidx}">${bv.subject}</a>
+        <c:forEach items="${nlist}" var="nv">
+            <div class="d-flex notice-item align-items-center">
+                <span class="me-3 text-muted"></span>
+                <p class="mb-0 small lh-sm w-100">
+                    <a href="${pageContext.request.contextPath}/board/noticeContents.aws?nidx=${nv.nidx}" class="notice-title">${nv.ntitle}</a>
                 </p>
             </div>
         </c:forEach>
 
-        <!-- 관리자만 볼 수 있는 글쓰기 버튼 -->
-      
-            <small class="d-block text-end mt-3">
-                <a href="${pageContext.request.contextPath}/board/noticeWrite.aws" class="btn btn-primary">글쓰기</a>
-            </small>
+       <small class="d-block text-end mt-3">
+    <c:if test="${sessionScope.admin == 'Y'}"> 
+        <a href="${pageContext.request.contextPath}/board/noticeWrite.aws" class="btn btn-primary">글쓰기</a>
+     </c:if>
+</small>
     </div>
 </main>
 
-<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'></script>
 </body>
 </html>

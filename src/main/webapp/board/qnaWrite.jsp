@@ -1,47 +1,84 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html lang="UTF-8">
 <head>
-<meta charset="UTF-8">
-<title>건의사항 글쓰기</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<style>
-  body {
-    margin-top: 80px; /* 네비게이션 바 높이에 따라 조정 */
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    font-size: 14px;
-  }
-</style>
+    <meta charset="utf-8">
+    <title>건의사항 글쓰기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <script src="https://cdn.tiny.cloud/1/qfz3buag8m18lhmxt4mlwy2t9xcoq6akibkw606ukd6w4oxx/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+    tinymce.init({
+        selector: "textarea", // TinyMCE를 적용할 textarea 선택
+        plugins: "advlist autolink link image lists charmap preview paste", // 플러그인 설정
+        toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image", // 툴바 설정
+        menubar: false, // 메뉴바 비활성화
+
+        paste_data_images: true, // 클립보드에서 복사한 이미지를 Base64로 처리
+        automatic_uploads: false, // 이미지 자동 업로드 비활성화
+
+        // 이미지 업로드를 Base64로 처리
+        images_upload_handler: function (blobInfo, success, failure) {
+            const reader = new FileReader(); // FileReader를 사용하여 파일을 Base64로 변환
+            reader.onload = function () {
+                success(reader.result); // Base64 데이터를 TinyMCE에 전달
+            };
+            reader.onerror = function () {
+                failure('이미지를 처리하는 동안 문제가 발생했습니다.');
+            };
+            reader.readAsDataURL(blobInfo.blob()); // 파일을 Base64로 읽기
+        },
+
+        // 붙여넣기 이미지를 Base64로 처리
+        paste_postprocess: function(plugin, args) {
+            console.log("붙여넣기 처리 중:", args.node.innerHTML);
+        }
+    });
+    </script>
+    <style>
+      body {
+        margin-top: 80px;
+        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+        font-size: 14px;
+      }
+    </style>
 </head>
 <body>
 <%@ include file="/header/navbar.jsp" %>
 
 <div class="container mt-5">
-  <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label">제목</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력하세요">
-  </div>
-  <div class="mb-3">
-    <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="16" placeholder="내용을 입력하세요"></textarea>
-  </div>
-  <div class="row g-3 align-items-center mb-3">
-    <div class="col-auto">
-      <label for="inputPassword6" class="col-form-label">비밀번호</label>
+  <form name="frm" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">제목</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력하세요" name="qtitle">
     </div>
-    <div class="col-auto">
-      <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="16" placeholder="내용을 입력하세요" name="qcontents"></textarea>
     </div>
-    <div class="col-auto">
-      <span id="passwordHelpInline" class="form-text"></span>
+    <div class="row g-3 align-items-center mb-3">
+      <div class="col-auto">
+        <label for="inputPassword6" class="col-form-label">비밀번호</label>
+      </div>
+      <div class="col-auto">
+        <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+      </div>
+      <div class="col-auto">
+        <span id="passwordHelpInline" class="form-text"></span>
+      </div>
     </div>
-  </div>
-  <div class="mb-3">
-    <label for="formFileMultiple" class="form-label">첨부파일</label>
-    <input class="form-control" type="file" id="formFileMultiple" multiple>
-  </div>
+    <div class="mb-3">
+      <label for="formFileMultiple" class="form-label">첨부파일</label>
+      <input class="form-control" type="file" id="formFileMultiple" name="attachfile" multiple>
+      <br>
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-primary" onclick="qnawriteCheck();">저장하기</button>
+      </div>
+    </div>
+  </form>
 </div>
 
-<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'></script>
+
+
 </body>
 </html>
