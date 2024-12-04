@@ -78,12 +78,12 @@
 
         <hr id="bottom">
         
-          <div>
-    		<c:if test="${sessionScope.admin == 'Y'}">
-       			 <a class="btn aBtn" id="contentsBtn" href="${pageContext.request.contextPath}/board/qnaModify.aws?qidx=${qv.qidx}">수정</a>
-       			 <a class="btn aBtn" id="contentsBtn" href="${pageContext.request.contextPath}/board/qnaDelete.aws?qidx=${qv.qidx}">삭제</a>
- 		   </c:if>
-		  </div>
+        <div>
+    		<c:if test="${sessionScope.admin == 'Y' || sessionScope.midx == qv.midx}">
+        		<a class="btn aBtn" id="contentsBtn" href="${pageContext.request.contextPath}/board/qnaModify.aws?qidx=${qv.qidx}">수정</a>
+        		<a class="btn aBtn" id="contentsBtn" href="${pageContext.request.contextPath}/board/qnaDelete.aws?qidx=${qv.qidx}">삭제</a>
+    		</c:if>
+		</div>
   
         <!-- 목록으로 돌아가는 버튼 -->
         <a class="btn aBtn" href="${pageContext.request.contextPath}/board/qnaList.aws">목록</a>

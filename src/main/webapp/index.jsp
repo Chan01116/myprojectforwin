@@ -53,6 +53,27 @@
     max-width: 800px;
     margin: auto;
   }
+  
+   .promo-img {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .promo-img img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer.copyright {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+        }
+  
+  
 </style>
 </head>
 
@@ -274,10 +295,11 @@
 </div>
  <!-- 프로모션 링크 -->
   <div class="promo-img">
-    <a href="/promo1"><img src="/images/promo1.jpg" alt="프로모션1" /></a>
-  </div>
+    <a href="/promo1"><img src="https://vrthumb.imagetoday.co.kr/2024/07/18/tae0019t000021.jpg" alt="프로모션1" /></a>
+</div>
+
   <div class="promo-img">
-    <a href="/promo2"><img src="/images/promo2.jpg" alt="프로모션2" /></a>
+    <a href="/promo2"><img src="https://img.freepik.com/free-vector/hand-drawn-travel-adventure-facebook-cover_23-2150877996.jpg" alt="프로모션2" /></a>
   </div>
 
   <!-- 하단 저작권 -->
