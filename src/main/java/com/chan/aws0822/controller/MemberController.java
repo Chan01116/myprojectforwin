@@ -3,6 +3,7 @@ package com.chan.aws0822.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.chan.aws0822.domain.MemberVo;
@@ -150,7 +152,24 @@ public class MemberController {
 				
 		return "redirect:/";
 	}
-    
+    @ResponseBody
+	@RequestMapping(value = "memberIdCheck.aws",method = RequestMethod.POST)
+	public JSONObject memberIdCheck(@RequestParam("memberId") String memberId) {
+				    	
+    			
+		//MemberDao mv = new MemberDao();  //POJO(Plain Old Java Object)방식은 기존 자바의 객체생성
+    	int cnt = memberService.memberIdCheck(memberId);
+    	
+    	    	
+    	//PrintWriter out = response.getWriter();
+    	//out.println("{\"cnt\":\""+cnt+"\"}");
+		
+    	JSONObject obj = new JSONObject();  
+    	obj.put("cnt", cnt);
+    	
+		
+		return obj;
+	}
 
 
 }

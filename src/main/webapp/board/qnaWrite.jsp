@@ -57,15 +57,9 @@
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="16" placeholder="내용을 입력하세요" name="qcontents"></textarea>
     </div>
     <div class="row g-3 align-items-center mb-3">
-      <div class="col-auto">
-        <label for="inputPassword6" class="col-form-label">비밀번호</label>
-      </div>
-      <div class="col-auto">
-        <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-      </div>
-      <div class="col-auto">
-        <span id="passwordHelpInline" class="form-text"></span>
-      </div>
+      
+     
+     
     </div>
     <div class="mb-3">
       <label for="formFileMultiple" class="form-label">첨부파일</label>

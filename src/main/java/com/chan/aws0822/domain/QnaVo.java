@@ -12,6 +12,8 @@ public class QnaVo {
 	
 	
 	
+	
+	
 	public int getQidx() {
 		return qidx;
 	}

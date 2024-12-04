@@ -41,12 +41,16 @@
 			<beans:ref bean ="loginInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/member/memberList.aws"/>
 			<mapping path="/board/noticeWrite.aws"/>
 			<mapping path="/board/noticeWriteAction.aws"/>
 			<mapping path="/board/noticeModify.aws"/>
 			<mapping path="/board/noticeModifyAction.aws"/>
 			<mapping path="/board/noticeDeleteAction.aws"/>
+			<mapping path="/board/qnaWrite.aws"/>
+			<mapping path="/board/qnaWriteAction.aws"/>
+			<mapping path="/board/qnaModify.aws"/>
+			<mapping path="/board/qnaModifyAction.aws"/>
+			<mapping path="/board/qnaDeleteAction.aws"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>

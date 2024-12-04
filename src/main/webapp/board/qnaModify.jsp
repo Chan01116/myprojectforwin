@@ -56,10 +56,6 @@
       <textarea class="form-control" id="qcontents" rows="16" placeholder="내용을 입력하세요" name="qcontents">${qv.qcontents}</textarea>
     </div>
     <div class="mb-3">
-      <label for="password" class="form-label">비밀번호</label>
-      <input type="password" class="form-control" id="password" name="password">
-    </div>
-    <div class="mb-3">
       <label for="attachfile" class="form-label">첨부파일</label>
       <input class="form-control" type="file" id="attachfile" name="attachfile">
       <br>

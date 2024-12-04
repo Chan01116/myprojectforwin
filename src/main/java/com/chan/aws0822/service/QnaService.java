@@ -14,7 +14,7 @@ public interface QnaService {
 	public int qnaViewCntUpdate(int qidx);
 	public int qnaUpdate(QnaVo qv);
 	public int qnaRecomUpdate(int qidx);
-	public int qnaDelete(int qidx, int midx, String password);
+	public int qnaDelete(int qidx, int midx);
 	public ArrayList<QnaVo> qnaSelectAll(SearchCriteria scri);
 	
 	

@@ -93,13 +93,13 @@ public class QnaServiceImpl implements QnaService{
 
 
 	@Override
-	public int qnaDelete(int qidx, int midx, String password) {
+	public int qnaDelete(int qidx, int midx) {
 		
 		HashMap<String,Object> hm = new HashMap<String,Object>();
 		
 		hm.put("qidx", qidx);
 		hm.put("midx", midx);
-		hm.put("password", password);
+		
 		
 		int cnt = qm.qnaDelete(hm);
 		

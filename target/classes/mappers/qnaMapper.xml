@@ -15,11 +15,11 @@
 </sql>
 
 <update id="qnaUpdate" parameterType="qv">
-	update qna set qtitle = #{qtitle}, qcontents=#{qcontents},writer=#{writer},modifyday=now(),filename=#{uploadedFilename} where qidx=#{qidx} and password =#{password} and midx = #{midx}<!-- Vo에 있는 이름과 동일해야함 -->
+	update qna set qtitle = #{qtitle}, qcontents=#{qcontents},writer=#{writer},modifyday=now(),filename=#{uploadedFilename} where qidx=#{qidx} and midx = #{midx}<!-- Vo에 있는 이름과 동일해야함 -->
 </update>
 
 <update id="qnaDelete" parameterType="HashMap">
-	update qna set delyn='Y', modifyday=now() where qidx=#{qidx} and midx=#{midx} and password=#{password} 
+	update qna set delyn='Y', modifyday=now() where qidx=#{qidx} and midx=#{midx} 
 </update>
 
 <update id="qnaViewCntUpdate" parameterType = "int">

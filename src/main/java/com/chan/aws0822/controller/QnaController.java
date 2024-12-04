@@ -211,11 +211,11 @@ public class QnaController {
 	
 	
 	@RequestMapping(value="qnaDeleteAction.aws",method=RequestMethod.POST)
-	public String qnaDeleteAction(@RequestParam("qidx") int qidx, @RequestParam("password") String password, HttpSession session) {
+	public String qnaDeleteAction(@RequestParam("qidx") int qidx, HttpSession session) {
 		
 		int midx = Integer.parseInt(session.getAttribute("midx").toString());
 		
-		int value = qnaService.qnaDelete(qidx,midx,password);
+		int value = qnaService.qnaDelete(qidx,midx);
 		
 		String path = "redirect:/board/qnaList.aws";
 		if(value == 0) {

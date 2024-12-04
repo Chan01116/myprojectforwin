@@ -10,15 +10,14 @@
 
   .tabs-overlay {
     position: absolute;
-    top: 50%; /* 이미지 위 가운데 배치 */
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 25%; /* 이미지 위 가운데 세로 위치 */
+    left: 50%; /* 이미지 위 가운데 가로 위치 */
+    transform: translate(-50%, -50%); /* 가운데 정렬을 위한 추가 코드 */
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 10px;
-  }
-
+}
   .tab-content {
     margin-top: 10px;
     background-color: rgba(255, 255, 255, 0.8);
@@ -34,47 +33,33 @@
     min-height: 100vh; /* 최소 높이 설정 */
   }
   
+    .schedule-form {
+    max-width: 800px;
+    margin: auto;
+  }
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
   .booking-form {
     max-width: 800px;
     margin: auto;
   }
   .bi-arrow-left-right {
     font-size: 24px;
-  }  
-  
-  .bg-light {
-    background-color: #f8f9fa !important;
   }
   .shadow {
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
   }
   
-  .schedule-form {
-    max-width: 800px;
-    margin: auto;
-  }
   
-   .promo-img {
-            margin: 20px 0;
-            text-align: center;
-        }
-        .promo-img img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        footer.copyright {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            width: 100%;
-        }
-  
-  
+  .promo-img {
+   
+    top: 50%; /* 수직 중앙 정렬 */
+    left: 50%; /* 수평 중앙 정렬 */
+    
+}
 </style>
+  
 </head>
 
 <body>
@@ -89,6 +74,7 @@
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">바로예매</button>
+        
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">예약조회</button>
@@ -105,189 +91,300 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab">
        <div class="container mt-5">
-  		 <div class="booking-form bg-light p-4 rounded shadow">
-    		<div class="form-header d-flex justify-content-between align-items-center mb-3">
+  <div class="booking-form bg-light p-4 rounded shadow">
+    <div class="form-header d-flex justify-content-between align-items-center mb-3">
       
-		      <div class="d-flex">
-		        <label class="me-3"><input type="radio" name="ticketType" checked> 왕복</label>
-		        <label class="me-3"><input type="radio" name="ticketType"> 편도</label>
-		        <label><input type="radio" name="ticketType"> 다구간</label>
-		      </div>
-    		</div>
+     
+    </div>
 
-		    <div class="form-content">
-		      <div class="row mb-3">
-		        <div class="col-md-5">
-		          <label class="form-label">출발지</label>
-		          <div class="input-group">
-	                <input type="text" class="form-control" placeholder="SEL">
-	                <span class="input-group-text">서울</span>
-	              </div>
-	            </div>
+    <div class="form-content">
+      <div class="row mb-3">
+        <div class="col-md-5">
+          <label class="form-label">출발지</label>
+          <div class="input-group">
+            <select class="form-select" id="departure">
+          <option value="">출발지 선택</option>
+            <option value="ICN">인천국제공항 (ICN)</option>
+            <option value="GMP">김포국제공항 (GMP)</option>
+             <option value="NRT">도쿄 나리타국제공항 (NRT)</option>
+            <option value="HND">도쿄 하네다국제공항 (HND)</option>
+            <option value="LAX">로스앤젤레스국제공항 (LAX)</option>
+            <option value="JFK">뉴욕 JFK국제공항 (JFK)</option>
+            <option value="CDG">파리 샤를드골국제공항 (CDG)</option>            
+           </select>
+          </div>
+        </div>
 
-	            <div class="col-md-2 text-center align-self-center">
-	              <i class="bi bi-arrow-left-right"></i>
-	            </div>
+        <div class="col-md-2 text-center align-self-center">
+          <i class="bi bi-arrow-left-right"></i>
+        </div>
 
-	            <div class="col-md-5">
-	              <label class="form-label">도착지</label>
-	              <input type="text" class="form-control" placeholder="도착지">
-	            </div>
-      		  </div>
+        <div class="col-md-5">
+          <label class="form-label">도착지</label>
+          <label class='form-label'>도착지</label>
+         <select class="form-select" id="arrival">
+            <option value="">도착지 선택</option> 
+            <option value="ICN">인천국제공항 (ICN)</option>
+            <option value="GMP">김포국제공항 (GMP)</option>
+            <option value="NRT">도쿄 나리타국제공항 (NRT)</option>
+            <option value="HND">도쿄 하네다국제공항 (HND)</option>
+            <option value="LAX">로스앤젤레스국제공항 (LAX)</option>
+            <option value="JFK">뉴욕 JFK국제공항 (JFK)</option>
+            <option value="CDG">파리 샤를드골국제공항 (CDG)</option>
+        </select>
+        </div>
+      </div>
 
-		      <div class="row mb-3">
-		        <div class="col-md-6">
-		          <label class="form-label">출발일</label>
-		          <input type="text" class="form-control" placeholder="가는 날 - 오는 날">
-		        </div>
-		
-		        <div class="col-md-3">
-		          <label class="form-label">탑승객</label>
-		          <input type="text" class="form-control" placeholder="성인 1명">
-		        </div>
-		
-		        <div class="col-md-3">
-		          <label class="form-label">좌석 등급</label>
-		          <select class="form-select">
-		            <option>선택하세요</option>
-		          </select>
-		        </div>
-		       </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">출발일</label>
+          <input type="date" class="form-control" placeholder="가는 날 - 오는 날">
+        </div>
+<div class="col-md-3">
+  <label class="form-label">탑승객</label>
+  <div class="input-group">
+    <button type="button" class="btn btn-outline-secondary" onclick="decreasePassenger()">-</button>
+    <input type="text" id="passengerCount" class="form-control text-center" value="1" min="1" max="9" readonly>
+    <button type="button" class="btn btn-outline-secondary" onclick="increasePassenger()">+</button>
+  </div>
+</div>
 
-		       <div class="d-grid gap-2 mt-4 row">
-		         <button class="btn btn-dark">항공편 검색</button>
-		       </div>
-		    </div>
-		    
-		    
-		  </div>
+<script>
+  function increasePassenger() {
+    var input = document.getElementById('passengerCount');
+    var currentValue = parseInt(input.value);
+    if (currentValue < 9) {
+      input.value = currentValue + 1;
+    }
+  }
+
+  function decreasePassenger() {
+    var input = document.getElementById('passengerCount');
+    var currentValue = parseInt(input.value);
+    if (currentValue > 1) {
+      input.value = currentValue - 1;
+    }
+  }
+  
+  
+  
+  document.getElementById('searchFlightBtn').addEventListener('click', function() {
+	  const departureCity = document.querySelector('input[placeholder="SEL"]').value;
+	  const arrivalCity = document.querySelector('input[placeholder="도착지"]').value;
+	  const departureDate = document.querySelector('input[type="date"]').value;
+	  const passengerCount = document.getElementById('passengerCount').value;
+	  const seatClass = document.querySelector('select').value;
+
+	  // AJAX를 사용하여 서버로 데이터 전송
+	  fetch('/api/searchFlights', {
+	    method: 'POST',
+	    headers: {
+	      'Content-Type': 'application/json',
+	    },
+	    body: JSON.stringify({
+	      departureCity,
+	      arrivalCity,
+	      departureDate,
+	      passengerCount,
+	      seatClass
+	    })
+	  })
+	  .then(response => response.json())
+	  .then(data => {
+	    // 검색 결과 처리
+	    displayFlightResults(data);
+	  })
+	  .catch(error => console.error('Error:', error));
+	});
+
+	function displayFlightResults(flights) {
+	  // 검색 결과를 화면에 표시하는 로직
+	  // ...
+	}
+  
+  
+  
+  
+  
+</script>
+
+
+
+        <div class="col-md-3">
+		  <label class="form-label">좌석 등급</label>
+		  <select class="form-select">
+		    <option class="" name = "choice">선택하세요</option>
+		    <option class="" name = "eco">이코노미</option> <!-- 이코노미 -->
+		    <option class="" name = "biz">비즈니스</option> <!-- 비즈니스 -->
+		    <option class="" name = "fir">퍼스트</option> <!-- 퍼스트 -->
+		  </select>
 		</div>
 
       </div>
-      
+
+     
+
+     <div class="d-grid gap-2 mt-4">
+         <button class="btn btn-dark" id="searchFlightBtn">항공편 검색</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
       <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab">
-        <div class='container mt-5'>
-  		  <div class='booking-form bg-light p-4 rounded shadow'>
-    		<div class='form-header d-flex justify-content-between align-items-center mb-3'>
+      <div class='container mt-5'>
+  <div class='booking-form bg-light p-4 rounded shadow'>
+    <div class='form-header d-flex justify-content-between align-items-center mb-3'>
       
-    	    </div>
+    </div>
 
-	        <div class='form-content'>
-	          <div class='row mb-3'>
-	            <div class='col-md-5'>
-	              <label class='form-label'>예약번호또는 항공권번호</label>
-	              <input type='text' class='form-control' placeholder='A1B2C3 또는 1801234567890'>
-	            </div>
+    <div class='form-content'>
+      <div class='row mb-3'>
+        <div class='col-md-5'>
+          <label class='form-label'>예약번호또는 항공권번호</label>
+          <input type='text' class='form-control' placeholder='A1B2C3 또는 1801234567890'>
+        </div>
 
-		        <div class='col-md-5'>
-		          <label class='form-label'>출발일</label>
-		          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
-		        </div>
-		      </div>
-
-		      <div class='row mb-3'>
-		        <div class='col-md-5'>
-		          <label class='form-label'>승객 성</label>
-		          <input type='text' class='form-control'>
-		        </div>
-		
-		        <div class='col-md-5'>
-		          <label class='form-label'>승객 이름</label>
-		          <input type='text' class='form-control'>
-		        </div>
-		      </div>
-		
-		      <div class='d-grid gap-2 mt-4'>
-		        <button class='btn btn-dark'>조회</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+        <div class='col-md-5'>
+          <label class='form-label'>출발일</label>
+          <input type="date" class='form-control' placeholder='YYYY-MM-DD' name ='indexTakeOffDay'>
+        </div>
       </div>
-            
+
+      <div class='row mb-3'>
+        <div class='col-md-5'>
+        
+        </div>
+
+        <div class='col-md-5'>
+          <label class='form-label'>승객 이름</label>
+          <input type='text' class='form-control'>
+        </div>
+      </div>
+
+
+      <div class='d-grid gap-2 mt-4'>
+        <button class='btn btn-dark'>조회</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ 
+      </div>
       <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab">
        <div class='container mt-5'>
-	     <div class='booking-form bg-light p-4 rounded shadow'>
-	        <div class='form-header d-flex justify-content-between align-items-center mb-3'>
-	      
-	        </div>
-  
-		    <div class='form-content'>
-		      <div class='row mb-3'>
-		        <div class='col-md-5'>
-		          <label class='form-label'>예약번호또는 항공권번호</label>
-		          <input type='text' class='form-control' placeholder='A1B2C3 또는 1801234567890'>
-		        </div>
-		
-		        <div class='col-md-5'>
-		          <label class='form-label'>출발일 - d-day-4</label>
-		          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
-		        </div>
-		      </div>
-		
-		      <div class='row mb-3'>
-		        <div class='col-md-5'>
-		          <label class='form-label'>승객 성</label>
-		          <input type='text' class='form-control'>
-		        </div>
-		
-		        <div class='col-md-5'>
-		          <label class='form-label'>승객 이름</label>
-		          <input type='text' class='form-control'>
-		        </div>
-		      </div>
+  <div class='booking-form bg-light p-4 rounded shadow'>
+    <div class='form-header d-flex justify-content-between align-items-center mb-3'>
+      
+    </div>
 
+    <div class='form-content'>
+      <div class='row mb-3'>
+        <div class='col-md-5'>
+          <label class='form-label'>예약번호또는 항공권번호</label>
+          <input type='text' class='form-control' placeholder='A1B2C3 또는 1801234567890'>
+        </div>
 
-      		  <div class='d-grid gap-2 mt-4'>
-        		<button class='btn btn-dark'>조회</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+        <div class='col-md-5'>
+          <label class='form-label'>출발일 - d-day-4</label>
+          <input type='date' class='form-control' placeholder='YYYY-MM-DD'>
+        </div>
       </div>
-            
+
+      <div class='row mb-3'>
+        <div class='col-md-5'>
+        
+        </div>
+
+        <div class='col-md-5'>
+          <label class='form-label'>승객 이름</label>
+          <input type='text' class='form-control'>
+        </div>
+      </div>
+
+
+      <div class='d-grid gap-2 mt-4'>
+        <button class='btn btn-dark'>조회</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .booking-form {
+    max-width: 800px;
+    margin: auto;
+  }
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  .shadow {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
+</style>
+      </div>
       <div class="tab-pane fade" id="schedule-tab-pane" role="tabpanel" aria-labelledby="schedule-tab">
        <div class='container mt-5'>
-		  <div class='schedule-form bg-light p-4 rounded shadow'>
-		    <div class='form-header d-flex justify-content-between align-items-center mb-3'>
-		    
-		    </div>
-		      
-		    <div class='form-content'>
-		      <div class='row mb-3'>
-		        <div class='col-md-5'>
-		          <label class='form-label'>출발지</label>
-		          <input type='text' class='form-control' placeholder='출발지 입력'>
-		        </div>
-		
-		        <div class='col-md-5'>
-		          <label class='form-label'>도착지</label>
-		          <input type='text' class='form-control' placeholder='도착지 입력'>
-		        </div>
-		      </div>
-		
-		      <div class='row mb-3'>
-		        <div class='col-md-5'>
-		          <label class='form-label'>출발일</label>
-		          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
-		        </div>
-		
-		        <div class='col-md-5'>
-		          <label class='form-label'>도착일</label>
-		          <input type='text' class='form-control' placeholder='YYYY-MM-DD'>
-		        </div>
-		      </div>
-		
-		      <div class='d-grid gap-2 mt-4'>
-		        <button class='btn btn-dark'>조회</button>
-		      </div>
-		    </div>
-		    
-		  </div>
-		</div>
+  <div class='schedule-form bg-light p-4 rounded shadow'>
+    <div class='form-header d-flex justify-content-between align-items-center mb-3'>
+      
+
+    <div class='form-content'>
+      <div class='row mb-3'>
+        <div class='col-md-5'>
+          <label class='form-label'>출발지</label>
+           <select class="form-select" id="departure">
+          <option value="">출발지 선택</option>
+            <option value="ICN">인천국제공항 (ICN)</option>
+            <option value="GMP">김포국제공항 (GMP)</option>
+             <option value="NRT">도쿄 나리타국제공항 (NRT)</option>
+            <option value="HND">도쿄 하네다국제공항 (HND)</option>
+            <option value="LAX">로스앤젤레스국제공항 (LAX)</option>
+            <option value="JFK">뉴욕 JFK국제공항 (JFK)</option>
+            <option value="CDG">파리 샤를드골국제공항 (CDG)</option>            
+           </select>
+        </div>
+
+        <div class='col-md-5'>
+          <label class='form-label'>도착지</label>
+         <select class="form-select" id="arrival">
+            <option value="">도착지 선택</option> 
+            <option value="ICN">인천국제공항 (ICN)</option>
+            <option value="GMP">김포국제공항 (GMP)</option>
+            <option value="NRT">도쿄 나리타국제공항 (NRT)</option>
+            <option value="HND">도쿄 하네다국제공항 (HND)</option>
+            <option value="LAX">로스앤젤레스국제공항 (LAX)</option>
+            <option value="JFK">뉴욕 JFK국제공항 (JFK)</option>
+            <option value="CDG">파리 샤를드골국제공항 (CDG)</option>
+        </select>
+        </div>
       </div>
-      
-      
+
+      <div class='row mb-3'>
+        <div class='col-md-5'>
+          <label class='form-label'>출발일</label>
+          <input type='date' class='form-control' placeholder='YYYY-MM-DD'>
+        </div>
+
+        <div class='col-md-5'>
+          <label class='form-label'>도착일</label>
+          <input type='date' class='form-control' placeholder='YYYY-MM-DD'>
+        </div>
+      </div>
+
+      <div class='d-grid gap-2 mt-4'>
+        <button class='btn btn-dark'>조회</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
     </div>
     
   </div>
@@ -295,11 +392,11 @@
 </div>
  <!-- 프로모션 링크 -->
   <div class="promo-img">
-    <a href="/promo1"><img src="https://vrthumb.imagetoday.co.kr/2024/07/18/tae0019t000021.jpg" alt="프로모션1" /></a>
+    <a href="http://localhost/board/noticeContents.aws?nidx=9"><img src="https://vrthumb.imagetoday.co.kr/2024/07/18/tae0019t000021.jpg" alt="프로모션1" /></a>
 </div>
 
   <div class="promo-img">
-    <a href="/promo2"><img src="https://img.freepik.com/free-vector/hand-drawn-travel-adventure-facebook-cover_23-2150877996.jpg" alt="프로모션2" /></a>
+    <a href="http://localhost/board/noticeContents.aws?nidx=8"><img src="https://img.freepik.com/free-vector/hand-drawn-travel-adventure-facebook-cover_23-2150877996.jpg" alt="프로모션2" /></a>
   </div>
 
   <!-- 하단 저작권 -->
