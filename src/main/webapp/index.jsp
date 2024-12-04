@@ -17,6 +17,13 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 10px;
+    width: 60%;  
+    max-width: 1500px;
+    
+}
+.form-control{
+width: 100%;
+
 }
   .tab-content {
     margin-top: 10px;
@@ -102,7 +109,7 @@
         <div class="col-md-5">
           <label class="form-label">출발지</label>
           <div class="input-group">
-            <select class="form-select" id="departure">
+            <select class="form-select" id="departure" onchange="updateArrivalOptions()">
           <option value="">출발지 선택</option>
             <option value="ICN">인천국제공항 (ICN)</option>
             <option value="GMP">김포국제공항 (GMP)</option>
@@ -120,7 +127,6 @@
         </div>
 
         <div class="col-md-5">
-          <label class="form-label">도착지</label>
           <label class='form-label'>도착지</label>
          <select class="form-select" id="arrival">
             <option value="">도착지 선택</option> 
@@ -137,8 +143,17 @@
 
       <div class="row mb-3">
         <div class="col-md-6">
-          <label class="form-label">출발일</label>
-          <input type="date" class="form-control" placeholder="가는 날 - 오는 날">
+        <div class="row mb-3">
+  <div class="col-md-3">
+    <label class="form-label">출발일</label>
+    <input type="date" id="departureDate" class="form-control" placeholder="가는 날">
+  </div>
+  <div class="col-md-3">
+    <label class="form-label">도착일</label>
+    <input type="date" id="returnDate" class="form-control" placeholder="오는 날" disabled>
+  </div>
+  
+</div>
         </div>
 <div class="col-md-3">
   <label class="form-label">탑승객</label>
@@ -149,64 +164,6 @@
   </div>
 </div>
 
-<script>
-  function increasePassenger() {
-    var input = document.getElementById('passengerCount');
-    var currentValue = parseInt(input.value);
-    if (currentValue < 9) {
-      input.value = currentValue + 1;
-    }
-  }
-
-  function decreasePassenger() {
-    var input = document.getElementById('passengerCount');
-    var currentValue = parseInt(input.value);
-    if (currentValue > 1) {
-      input.value = currentValue - 1;
-    }
-  }
-  
-  
-  
-  document.getElementById('searchFlightBtn').addEventListener('click', function() {
-	  const departureCity = document.querySelector('input[placeholder="SEL"]').value;
-	  const arrivalCity = document.querySelector('input[placeholder="도착지"]').value;
-	  const departureDate = document.querySelector('input[type="date"]').value;
-	  const passengerCount = document.getElementById('passengerCount').value;
-	  const seatClass = document.querySelector('select').value;
-
-	  // AJAX를 사용하여 서버로 데이터 전송
-	  fetch('/api/searchFlights', {
-	    method: 'POST',
-	    headers: {
-	      'Content-Type': 'application/json',
-	    },
-	    body: JSON.stringify({
-	      departureCity,
-	      arrivalCity,
-	      departureDate,
-	      passengerCount,
-	      seatClass
-	    })
-	  })
-	  .then(response => response.json())
-	  .then(data => {
-	    // 검색 결과 처리
-	    displayFlightResults(data);
-	  })
-	  .catch(error => console.error('Error:', error));
-	});
-
-	function displayFlightResults(flights) {
-	  // 검색 결과를 화면에 표시하는 로직
-	  // ...
-	}
-  
-  
-  
-  
-  
-</script>
 
 
 
@@ -401,6 +358,135 @@
 
   <!-- 하단 저작권 -->
   <footer class="copyright">Copyright &copy; Chan</footer>
+  
+  <script>
+  function increasePassenger() {
+    var input = document.getElementById('passengerCount');
+    var currentValue = parseInt(input.value);
+    if (currentValue < 9) {
+      input.value = currentValue + 1;
+    }
+  }
+
+  function decreasePassenger() {
+    var input = document.getElementById('passengerCount');
+    var currentValue = parseInt(input.value);
+    if (currentValue > 1) {
+      input.value = currentValue - 1;
+    }
+  }
+  
+  
+  
+  document.getElementById('searchFlightBtn').addEventListener('click', function() {
+	  const departureCity = document.querySelector('input[placeholder="SEL"]').value;
+	  const arrivalCity = document.querySelector('input[placeholder="도착지"]').value;
+	  const departureDate = document.querySelector('input[type="date"]').value;
+	  const passengerCount = document.getElementById('passengerCount').value;
+	  const seatClass = document.querySelector('select').value;
+
+	  // AJAX를 사용하여 서버로 데이터 전송
+	  fetch('/api/searchFlights', {
+	    method: 'POST',
+	    headers: {
+	      'Content-Type': 'application/json',
+	    },
+	    body: JSON.stringify({
+	      departureCity,
+	      arrivalCity,
+	      departureDate,
+	      passengerCount,
+	      seatClass
+	    })
+	  })
+	  .then(response => response.json())
+	  .then(data => {
+	    // 검색 결과 처리
+	    displayFlightResults(data);
+	  })
+	  .catch(error => console.error('Error:', error));
+	});
+
+	function displayFlightResults(flights) {
+	  // 검색 결과를 화면에 표시하는 로직
+	  // ...
+	}
+  
+  
+	 function updateArrivalOptions() {
+		    const departure = document.getElementById("departure").value;
+		    const arrival = document.getElementById("arrival");
+		    const arrivalOptions = arrival.querySelectorAll("option");
+
+		    // 모든 도착지 옵션을 기본값으로 표시
+		    arrivalOptions.forEach(option => {
+		      option.disabled = false;
+		    });
+
+		    // 출발지가 ICN이면 도착지에서 GMP를 비활성화
+		    if (departure === "ICN") {
+		      arrival.querySelector("option[value='GMP']").disabled = true;
+		    }
+
+		    // 출발지가 GMP이면 도착지에서 ICN을 비활성화
+		    if (departure === "GMP") {
+		      arrival.querySelector("option[value='ICN']").disabled = true;
+		    }
+		    // 이런식으로 없는 항공편 비활성화 시킬수 있음
+		    if (departure === "NRT") {
+			      arrival.querySelector("option[value='HND']").disabled = true;
+			    }
+		    if (departure === "HND") {
+			      arrival.querySelector("option[value='NRT']").disabled = true;
+			    }
+		    if (departure === "ICN") {
+		        arrival.querySelector("option[value='ICN']").disabled = true;
+		    }
+		    if (departure === "GMP") {
+		        arrival.querySelector("option[value='GMP']").disabled = true;
+		    }
+		    if (departure === "NRT") {
+		        arrival.querySelector("option[value='NRT']").disabled = true;
+		    }
+		    if (departure === "HND") {
+		        arrival.querySelector("option[value='HND']").disabled = true;
+		    }
+		    if (departure === "LAX") {
+		        arrival.querySelector("option[value='LAX']").disabled = true;
+		    }
+		    if (departure === "JFK") {
+		        arrival.querySelector("option[value='JFK']").disabled = true;
+		    }
+		    if (departure === "CDG") {
+		        arrival.querySelector("option[value='CDG']").disabled = true;
+		    }
+		  }
+
+		  // 초기화 시에도 출발지에 대한 도착지 옵션을 확인
+		  
+		  window.onload = updateArrivalOptions;
+		  
+		  
+		  
+		  
+		  
+		  document.addEventListener('DOMContentLoaded', function() {
+			  const departureDateInput = document.getElementById('departureDate');
+			  const returnDateInput = document.getElementById('returnDate');
+
+			  departureDateInput.addEventListener('change', function() {
+			    returnDateInput.disabled = false;
+			    returnDateInput.min = this.value;
+			  });
+
+			  // 오늘 날짜 이후로만 선택 가능하도록 설정
+			  const today = new Date().toISOString().split('T')[0];
+			  departureDateInput.min = today;
+			});
+  
+  
+</script>
+  
 
 </body>
 </html>

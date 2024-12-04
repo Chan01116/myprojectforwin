@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스용 문서 타입이다 -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.chan.aws0822.persistance.FlightMapper">
+
+
+<select id="searchFlights" parameterType="HashMap" resultType="fv">
+   "SELECT * FROM FLIGHT WHERE departure_airport_id = #{departure_airport_id} AND arrival_airport_id = #{arrival_airport_id} AND DATE(departure_time) = #{departure_time}";
+</select>
+
+
+<!-- "SELECT seat_number FROM RESERVATION WHERE flight_id = ? AND status = 'AVAILABLE' AND seat_number LIKE ?";
+
+
+
+
+"INSERT INTO RESERVATION (flight_id, midx, reservation_date, seat_number, status) VALUES (?, ?, ?, ?, 'CONFIRMED')";
+
+
+"SELECT r.*, f.flight_number, f.departure_time, f.arrival_time FROM RESERVATION r JOIN FLIGHT f ON r.flight_id = f.flight_id WHERE r.midx = ?"; -->
+
+</mapper>
