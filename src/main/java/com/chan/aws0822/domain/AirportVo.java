@@ -8,9 +8,51 @@ public class AirportVo {
 	private String hnd;
 	private String jfk;
 	private String cdg;
+	private String airportCode;    // 공항 코드
+    private String airportName;    // 공항 이름
+    private String city;           // 도시
+	private String country;        // 국가
 	
 	
 	
+	
+	public AirportVo() {}
+
+	public AirportVo(String airportCode, String airportName, String city, String country) {
+	    this.airportCode = airportCode;
+	    this.airportName = airportName;
+	    this.city = city;
+	    this.country = country;
+	}
+	
+	
+	
+	
+	
+	public String getAirportCode() {
+		return airportCode;
+	}
+	public void setAirportCode(String airportCode) {
+		this.airportCode = airportCode;
+	}
+	public String getAirportName() {
+		return airportName;
+	}
+	public void setAirportName(String airportName) {
+		this.airportName = airportName;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
 	public String getIcn() {
 		return icn;
 	}

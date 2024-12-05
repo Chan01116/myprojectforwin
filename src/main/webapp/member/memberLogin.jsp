@@ -41,11 +41,11 @@
 <body>
 
 <main class="form-signin text-center">
-  <form name="frm">
+  <form name="frm" method="post">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div class="form-floating mb-3">
-      <input type="email" class="form-control" id="floatingInput" name="memberid" placeholder="name@example.com">
+      <input type="text" class="form-control" id="floatingInput" name="memberid" placeholder="ID">
       <label for="floatingInput">ID</label>
     </div>
     <div class="form-floating mb-3">
@@ -60,12 +60,39 @@
       </label>
     </div> -->
     
-    <button class="btn btn-primary w-100 py-2 mb-2" name="btn" type="button" onclick= "check();" id="signIn" >Sign in</button>
+   <button class="btn btn-primary w-100 py-2 mb-2" type="submit" onclick="check();">Sign in</button>
     <button class="btn btn-secondary w-100 py-2" type="button" onclick="location.href='<%=request.getContextPath()%>/member/memberJoin.aws'">Sign Up</button>
     
     <p class="mt-5 mb-3 text-muted">&copy; 2017–2024</p>
   </form>
 </main>
+<script>
+<%
+if(session.getAttribute("midx") != null) {
+    // 이미 로그인된 경우 메인페이지로 리다이렉트
+    out.println("location.href='" + request.getContextPath() + "/;");
+}
+%>
 
+function check() {
+    let memberid = document.getElementsByName("memberid");
+    let memberpassword = document.getElementsByName("memberpassword");
+    
+    if(memberid[0].value == ""){
+        alert("아이디를 입력해주세요");
+        memberid[0].focus();
+        return;
+    }else if(memberpassword[0].value == ""){
+        alert("비밀번호를 입력해주세요");
+        memberpassword[0].focus();
+        return;
+    }
+    
+    var fm = document.frm;
+    fm.action = "<%=request.getContextPath()%>/member/memberLoginAction.aws";
+    fm.method = "post";
+    fm.submit();
+}
+</script>
 </body>
 </html>

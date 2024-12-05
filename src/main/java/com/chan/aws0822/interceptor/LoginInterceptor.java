@@ -17,7 +17,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {  //회원정보를 
 		
 		//가로채기 하기전에 처리하는 메서드
 		HttpSession session = request.getSession();
-		
+		  
+		/*
+		 * if (session.getAttribute("login") == null) {
+		 * response.setContentType("application/json");
+		 * response.getWriter().write("{\"redirect\":\"login\"}"); return false; }
+		 */
 		if(session.getAttribute("midx")!= null) {
 			
 			session.removeAttribute("midx");
@@ -58,6 +63,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {  //회원정보를 
 		
 		
 	}
+	
+	
 
 	
 	

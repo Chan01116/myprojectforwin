@@ -37,20 +37,7 @@
                 return;
             });
 
-            $("#btn").click(function(){
-                $.ajax({
-                    type: "get",
-                    url: "${pageContext.request.contextPath}/board/noticeRecom.aws?nidx=${nv.nidx}",
-                    dataType: "json",
-                    success: function(result){
-                        var str ="추천("+result.recom+")";            
-                        $("#btn").val(str);            
-                    },
-                    error: function(){                        
-                        alert("전송실패");
-                    }            
-                });            
-            });    
+                
         });
     </script>
 </head>
@@ -62,7 +49,7 @@
         <h6 class="border-bottom pb-2 mb-0">글내용</h6>
         
         <div><article class="detailContents">${nv.ntitle}(조회수:${nv.viewcnt})</article><br>
-        <input type="button" id="btn" value="추천(${nv.recom})">
+      
         </div>
         
         <div>${nv.ncontents}</div>

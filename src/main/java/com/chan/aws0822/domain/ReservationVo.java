@@ -1,49 +1,101 @@
 package com.chan.aws0822.domain;
 
+import java.time.LocalDateTime;
+
 public class ReservationVo {
-	private int reservation_id;
-	private int flight_id;
-	private int midx;
-	private String reservation_date;
-	private String seat_number;
-	private String status;
+	 private int reservationId;
+	    private int flightId;
+	    private int midx;
+	    private LocalDateTime reservationDate;
+	    private int seatId;  // seat_number를 seatId로 변경
+	    private String status;
+	    private double totalPrice;  // 추가: 총 결제 금액
+	    private String passengerName;  // 추가: 승객 이름
+	    private String seatGrade;  // 추가: 좌석 등급
+		
+	    
+	    
+	    public int getReservationId() {
+			return reservationId;
+		}
+		public void setReservationId(int reservationId) {
+			this.reservationId = reservationId;
+		}
+		public int getFlightId() {
+			return flightId;
+		}
+		public void setFlightId(int flightId) {
+			this.flightId = flightId;
+		}
+		public int getMidx() {
+			return midx;
+		}
+		public void setMidx(int midx) {
+			this.midx = midx;
+		}
+		public LocalDateTime getReservationDate() {
+			return reservationDate;
+		}
+		public void setReservationDate(LocalDateTime reservationDate) {
+			this.reservationDate = reservationDate;
+		}
+		public int getSeatId() {
+			return seatId;
+		}
+		public void setSeatId(int seatId) {
+			this.seatId = seatId;
+		}
+		public String getStatus() {
+			return status;
+		}
+		public void setStatus(String status) {
+			this.status = status;
+		}
+		public double getTotalPrice() {
+			return totalPrice;
+		}
+		public void setTotalPrice(double totalPrice) {
+			this.totalPrice = totalPrice;
+		}
+		public String getPassengerName() {
+			return passengerName;
+		}
+		public void setPassengerName(String passengerName) {
+			this.passengerName = passengerName;
+		}
+		public String getSeatGrade() {
+			return seatGrade;
+		}
+		public void setSeatGrade(String seatGrade) {
+			this.seatGrade = seatGrade;
+		}
 	
+		// 기본 생성자
+		public ReservationVo() {}
+
+		// 모든 필드를 포함하는 생성자
+		public ReservationVo(int reservationId, int flightId, int midx, 
+		    LocalDateTime reservationDate, int seatId, String status,
+		    double totalPrice, String passengerName, String seatGrade) {
+		    // 필드 초기화
+		}
+		
+		
+		@Override
+		public String toString() {
+		    return "ReservationVo{" +
+		            "reservationId=" + reservationId +
+		            ", flightId=" + flightId +
+		            ", midx=" + midx +
+		            ", reservationDate=" + reservationDate +
+		            ", seatId=" + seatId +
+		            ", status='" + status + '\'' +
+		            ", totalPrice=" + totalPrice +
+		            ", passengerName='" + passengerName + '\'' +
+		            ", seatGrade='" + seatGrade + '\'' +
+		            '}';
+		}
+		
 	
-	public int getReservation_id() {
-		return reservation_id;
-	}
-	public void setReservation_id(int reservation_id) {
-		this.reservation_id = reservation_id;
-	}
-	public int getFlight_id() {
-		return flight_id;
-	}
-	public void setFlight_id(int flight_id) {
-		this.flight_id = flight_id;
-	}
-	public int getMidx() {
-		return midx;
-	}
-	public void setMidx(int midx) {
-		this.midx = midx;
-	}
-	public String getReservation_date() {
-		return reservation_date;
-	}
-	public void setReservation_date(String reservation_date) {
-		this.reservation_date = reservation_date;
-	}
-	public String getSeat_number() {
-		return seat_number;
-	}
-	public void setSeat_number(String seat_number) {
-		this.seat_number = seat_number;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 }

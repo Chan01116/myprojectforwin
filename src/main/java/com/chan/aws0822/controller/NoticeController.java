@@ -183,7 +183,7 @@ public class NoticeController {
 	
 	@ResponseBody
 	@RequestMapping(value="noticeRecom.aws",method=RequestMethod.GET)
-	public JSONObject boardRecom(@RequestParam("nidx") int nidx) {
+	public JSONObject noticeRecom(@RequestParam("nidx") int nidx) {
 		
 		int value = noticeService.noticeRecomUpdate(nidx);
 		

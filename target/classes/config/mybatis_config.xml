@@ -9,6 +9,7 @@
 <typeAlias alias="fv" type="com.chan.aws0822.domain.FlightVo"/>
 <typeAlias alias="rv" type="com.chan.aws0822.domain.ReservationVo"/>
 <typeAlias alias="qv" type="com.chan.aws0822.domain.QnaVo"/>
+<typeAlias alias="fdto" type="com.chan.aws0822.domain.FlightSearchDTO"/>
 <typeAlias alias="scri" type="com.chan.aws0822.domain.SearchCriteria"/>
 </typeAliases>
 </configuration>

@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
   .nav-tabs .nav-link {
     padding: 15px 30px;
@@ -77,10 +78,10 @@ width: 100%;
 <div class="container mt-1 position-relative"> <!-- 컨텐츠에 여백 추가 -->
   <img src="https://www.rosenaviation.com/wp-content/uploads/2024/02/Longest-commercial-flights-Rosen-Aviation-scaled.jpeg" class="img-fluid mt-1" alt="">
   
-  <div class="tabs-overlay">
+  <form class="tabs-overlay" name="frm">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">바로예매</button>
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">바로검색</button>
         
       </li>
       <li class="nav-item" role="presentation">
@@ -346,7 +347,7 @@ width: 100%;
     
   </div>
 
-</div>
+</form>
  <!-- 프로모션 링크 -->
   <div class="promo-img">
     <a href="http://localhost/board/noticeContents.aws?nidx=9"><img src="https://vrthumb.imagetoday.co.kr/2024/07/18/tae0019t000021.jpg" alt="프로모션1" /></a>
@@ -378,40 +379,85 @@ width: 100%;
   
   
   
-  document.getElementById('searchFlightBtn').addEventListener('click', function() {
-	  const departureCity = document.querySelector('input[placeholder="SEL"]').value;
-	  const arrivalCity = document.querySelector('input[placeholder="도착지"]').value;
-	  const departureDate = document.querySelector('input[type="date"]').value;
-	  const passengerCount = document.getElementById('passengerCount').value;
-	  const seatClass = document.querySelector('select').value;
+  	function searchFlight() {
+	    const departure = document.getElementById('departure').value;
+	    const arrival = document.getElementById('arrival').value;
+	    const departureDate = document.getElementById('departureDate').value;
+	    const passengerCount = document.getElementById('passengerCount').value;
+	    const seatClass = document.querySelector('select[class="form-select"]').value;
+	    const returnDate = document.getElementById('returnDate').value;
 
-	  // AJAX를 사용하여 서버로 데이터 전송
-	  fetch('/api/searchFlights', {
-	    method: 'POST',
-	    headers: {
-	      'Content-Type': 'application/json',
-	    },
-	    body: JSON.stringify({
-	      departureCity,
-	      arrivalCity,
-	      departureDate,
-	      passengerCount,
-	      seatClass
+	    
+	    var fm = document.frm; // frm : form객체의 이름
+      fm.action = "<%=request.getContextPath()%>/booking/dirBooking.aws";
+      fm.method = "post";
+      fm.submit(); 
+  	
+  	
+	   <%--  $.ajax({ 
+            type: "post", //전송방식
+            url: "<%=request.getContextPath()%>/booking/dirBooking.aws", 
+            dataType: "json", // json타입은 문서에서 {"키값": "value값","키갑2": "value값2"} 
+            data: { "departure": departure, 
+            	"arrival": arrival, 
+            	"departureDate": departureDate, 
+            	"passengerCount": passengerCount, 
+            	"seatClass": seatClass,
+            	"returnDate": returnDate }, 
+            success: function(result) { // 결과가 넘어와서 성공했을 때 받는 영역
+                alert("성공"); 
+            }, 
+            error: function() { // 결과가 실패했을 때 받는 영역
+                alert("전송실패 테스트"); 
+            } 
+        });  --%>
+	    
+	    
+	    /* fetch('/booking/searchFlights.aws', {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json',
+	            'Accept': 'application/json'  // 추가: JSON 응답 요청
+	        },
+	        body: JSON.stringify({
+	            departure,
+	            arrival,
+	            departureDate,
+	            passengerCount,
+	            seatClass
+	        })
 	    })
-	  })
-	  .then(response => response.json())
-	  .then(data => {
-	    // 검색 결과 처리
-	    displayFlightResults(data);
-	  })
-	  .catch(error => console.error('Error:', error));
-	});
-
-	function displayFlightResults(flights) {
-	  // 검색 결과를 화면에 표시하는 로직
-	  // ...
+	    .then(response => {
+	        // 응답 타입 체크
+	        const contentType = response.headers.get('content-type');
+	        if (contentType && contentType.includes('application/json')) {
+	            return response.json();
+	        }
+	        // JSON이 아닌 경우 로그인 페이지로 리다이렉트
+	        window.location.href = '/member/memberLogin.aws';
+	        throw new Error('Not JSON');
+	    })
+	    .then(data => {
+	        if (data.redirect === 'login') {
+	            window.location.href = '/member/memberLogin.aws';
+	        } else {
+	            window.location.href = '/booking/dirBooking.aws';
+	        }
+	    })
+	    .catch(error => {
+	        console.error('Error:', error);
+	        // 에러 발생 시 로그인 페이지로 이동
+	        window.location.href = '/member/memberLogin.aws';
+	    }); */
 	}
-  
+
+	// 이벤트 리스너 추가
+	document.getElementById('searchFlightBtn').addEventListener('click', searchFlight);
+	
+	
+	
+	
+	
   
 	 function updateArrivalOptions() {
 		    const departure = document.getElementById("departure").value;
@@ -483,7 +529,6 @@ width: 100%;
 			  const today = new Date().toISOString().split('T')[0];
 			  departureDateInput.min = today;
 			});
-  
   
 </script>
   

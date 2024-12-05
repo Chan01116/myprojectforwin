@@ -41,6 +41,7 @@
 			<beans:ref bean ="loginInterceptor"/>
 		</interceptor>
 		<interceptor>
+			<mapping path="/booking/dirBooking.aws"/>
 			<mapping path="/board/noticeWrite.aws"/>
 			<mapping path="/board/noticeWriteAction.aws"/>
 			<mapping path="/board/noticeModify.aws"/>

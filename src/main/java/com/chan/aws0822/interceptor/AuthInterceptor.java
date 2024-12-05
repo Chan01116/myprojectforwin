@@ -57,7 +57,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{ //인증 인터셉터 
 		}
 		//이동할 페이지
 		String locationUrl = uri+param;
-		
+		System.out.println("aaaaaaa"+locationUrl);
 		HttpSession session = request.getSession();
 		if(request.getMethod().equals("GET")) { //대문자GET
 			
