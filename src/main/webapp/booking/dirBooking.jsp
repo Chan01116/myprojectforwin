@@ -59,7 +59,7 @@
         </c:when>
         <c:otherwise>
             <c:forEach items="${flightList}" var="flight">
-                <div class="flight-card">
+                <div class="flight-card" data-flight-id="${flight.flight_id}">
                     <div class="row align-items-center">
                         <div class="col-md-2">
                             <h5>항공편</h5>
@@ -95,10 +95,18 @@
     
     
     <script>
-        function selectFlight(flightId) {
-            // 항공편 선택 시 처리
-            window.location.href = '/booking/seat.aws?flightId=' + flightId;
-        }
+    function selectFlight(flightId) {
+        // URL에 필요한 파라미터들을 추가
+        const url = '/booking/seat.aws?' + 
+            'flightId=' + flightId + 
+            '&passengerCount=${passengerCount}' +
+            '&departure=${departure}' +
+            '&arrival=${arrival}' +
+            '&departureDate=${departureDate}' +
+            '&price=' + encodeURIComponent(document.querySelector(`[data-flight-id="${flightId}"] .price-info`).textContent);
+        
+        window.location.href = url;
+    }
     </script>
 </body>
 </html>
