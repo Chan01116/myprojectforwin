@@ -4,21 +4,16 @@
 
 <mapper namespace="com.chan.aws0822.persistance.FlightMapper">
     <select id="searchFlights" parameterType="HashMap" resultType="fv">
-        SELECT f.*, 
-               dep.airport_code as departure_code,
-               arr.airport_code as arrival_code
-        FROM flight f
-        JOIN airport dep ON f.departure_airport_id = dep.airport_id
-        JOIN airport arr ON f.arrival_airport_id = arr.airport_id
-        WHERE dep.airport_code = #{departure}
-        AND arr.airport_code = #{arrival}
-        AND DATE(f.departure_time) = #{departureDate}
-        AND f.available_seats >= #{passengerCount}
-        AND CASE 
-            WHEN #{seatClass} = 'eco' THEN f.economy_seats >= #{passengerCount}
-            WHEN #{seatClass} = 'biz' THEN f.business_seats >= #{passengerCount}
-            WHEN #{seatClass} = 'fir' THEN f.first_seats >= #{passengerCount}
-        END
-        ORDER BY f.departure_time ASC
-    </select>
+    SELECT f.*, 
+           dep.airport_code as departure_code,
+           arr.airport_code as arrival_code
+    FROM flight f
+    JOIN airport dep ON f.departure_airport_id = dep.airport_id
+    JOIN airport arr ON f.arrival_airport_id = arr.airport_id
+    WHERE dep.airport_code = #{departure}
+    AND arr.airport_code = #{arrival}
+    AND DATE(f.departure_time) = #{departureDate}
+    AND f.available_seats >= #{passengerCount}
+    ORDER BY f.departure_time ASC
+</select>
 </mapper>

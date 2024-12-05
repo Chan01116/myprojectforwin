@@ -1,17 +1,104 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<meta charset="UTF-8">
-<title>다이렉트 예약</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>다이렉트 예약</title>
+    <style>
+        .flight-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .price-info {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+    </style>
 </head>
 <body>
-<%@ include file="/header/navbar.jsp" %>
+    <%@ include file="/header/navbar.jsp" %>
+    
+    <div class="container mt-5">
+        <!-- 검색 정보 요약 -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">검색 조건</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">출발지: ${departure}</div>
+                    <div class="col-md-3">도착지: ${arrival}</div>
+                    <div class="col-md-3">출발일: ${departureDate}</div>
+                    <div class="col-md-3">도착일: ${returnDate}</div>
+                    <div class="col-md-3">탑승객: ${passengerCount}명</div>
+                </div>
+            </div>
+        </div>
 
+      <!-- 항공편 목록 -->
+<div class="flight-list">
+    <h4 class="mb-4">항공편 선택</h4>
+    <c:choose>
+        <c:when test="${empty flightList}">
+            <div class="alert alert-info text-center p-5 shadow-sm">
+                <i class="bi bi-exclamation-circle-fill fs-1 mb-3"></i>
+                <h4 class="alert-heading mb-3">항공편을 찾을 수 없습니다</h4>
+                <p class="mb-0">선택하신 조건에 맞는 항공편이 없습니다.</p>
+                <p>다른 날짜나 조건으로 다시 검색해 보세요.</p>
+                <button class="btn btn-outline-primary mt-3" onclick="history.back()">
+                    <i class="bi bi-arrow-left"></i> 검색 조건 수정하기
+                </button>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <c:forEach items="${flightList}" var="flight">
+                <div class="flight-card">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <h5>항공편</h5>
+                            <p class="mb-0">${flight.flight_number}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <h5>출발</h5>
+                            <p class="mb-0">${flight.departure_time}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <h5>도착</h5>
+                            <p class="mb-0">${flight.arrival_time}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <h5>좌석</h5>
+                            <p class="mb-0">잔여 ${flight.available_seats}석</p>
+                        </div>
+                        <div class="col-md-2">
+                            <h5>가격</h5>
+                            <p class="price-info">₩<fmt:formatNumber value="${flight.price}" pattern="#,###" /></p>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary w-100" onclick="selectFlight(${flight.flight_id})">선택</button>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
+</div>
 
-
-
-
+    
+    
+    
+    <script>
+        function selectFlight(flightId) {
+            // 항공편 선택 시 처리
+            window.location.href = '/booking/seat.aws?flightId=' + flightId;
+        }
+    </script>
 </body>
 </html>

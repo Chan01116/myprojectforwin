@@ -1,6 +1,10 @@
 package com.chan.aws0822.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -108,12 +112,46 @@ public class FlightController {
 					    
 						
 						
-						@RequestMapping(value = "dirBooking.aws", method = {RequestMethod.GET, RequestMethod.POST})
-					    public String dirBooking() {
-					    	
-					        
-					        return "/booking/dirBooking";
-					    }
+						@RequestMapping(value = "dirBooking.aws", method = RequestMethod.POST)
+						public String dirBooking(@RequestParam String departure,
+						                        @RequestParam String arrival,
+						                        @RequestParam String departureDate,
+						                        @RequestParam String passengerCount,
+						                        @RequestParam(required = false) String returnDate,
+						                        Model model) {
+							 departure = departure.replace(",", "").trim();
+							    arrival = arrival.replace(",", "").trim();
+							    departureDate = departureDate.replace(",", "").trim();
+							    passengerCount = passengerCount.replace(",", "").trim();
+							    if (returnDate != null) {
+							        returnDate = returnDate.replace(",", "").trim();
+							    }
+							
+							
+						    
+						    int passengers = Integer.parseInt(passengerCount.replace(",", ""));
+						    
+						    // 날짜 문자열에서 쉼표 제거 및 시간 추가
+						    String cleanDate = departureDate.replace(",", "") + " 00:00:00";
+						    
+						    FlightSearchDTO searchDTO = new FlightSearchDTO();
+						    searchDTO.setDeparture(departure);
+						    searchDTO.setArrival(arrival);
+						    searchDTO.setDepartureDate(LocalDateTime.parse(cleanDate, 
+						        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+						    searchDTO.setPassengerCount(passengers);
+						    
+						    List<FlightVo> flightList = flightService.searchFlights(searchDTO);
+						    
+						    model.addAttribute("departure", departure);
+						    model.addAttribute("arrival", arrival);
+						    model.addAttribute("departureDate", departureDate);
+						    model.addAttribute("passengerCount", passengers);
+						    model.addAttribute("returnDate", returnDate != null ? returnDate : "");
+						    model.addAttribute("flightList", flightList);
+						    
+						    return "/booking/dirBooking";
+						}
 						
 						
 						@RequestMapping(value = "flightSrc.aws", method = RequestMethod.GET)

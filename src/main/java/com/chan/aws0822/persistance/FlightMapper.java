@@ -8,5 +8,6 @@ import com.chan.aws0822.domain.FlightVo;
 
 public interface FlightMapper {
 	List<FlightVo> searchFlights(Map<String, Object> params);
+	
 
 }

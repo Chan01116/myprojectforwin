@@ -78,7 +78,11 @@ width: 100%;
 <div class="container mt-1 position-relative"> <!-- 컨텐츠에 여백 추가 -->
   <img src="https://www.rosenaviation.com/wp-content/uploads/2024/02/Longest-commercial-flights-Rosen-Aviation-scaled.jpeg" class="img-fluid mt-1" alt="">
   
-  <form class="tabs-overlay" name="frm">
+   <form name="frm" method="post" action="/booking/dirBooking.aws" class="tabs-overlay">
+        <input type="hidden" name="departure" id="departure_hidden">
+        <input type="hidden" name="arrival" id="arrival_hidden">
+        <input type="hidden" name="departureDate" id="departureDate_hidden">
+        
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">바로검색</button>
@@ -110,7 +114,7 @@ width: 100%;
         <div class="col-md-5">
           <label class="form-label">출발지</label>
           <div class="input-group">
-            <select class="form-select" id="departure" onchange="updateArrivalOptions()">
+            <select class="form-select" id="departure" name="departure" onchange="updateArrivalOptions()">
           <option value="">출발지 선택</option>
             <option value="ICN">인천국제공항 (ICN)</option>
             <option value="GMP">김포국제공항 (GMP)</option>
@@ -129,7 +133,7 @@ width: 100%;
 
         <div class="col-md-5">
           <label class='form-label'>도착지</label>
-         <select class="form-select" id="arrival">
+         <select class="form-select" id="arrival"name="arrival">
             <option value="">도착지 선택</option> 
             <option value="ICN">인천국제공항 (ICN)</option>
             <option value="GMP">김포국제공항 (GMP)</option>
@@ -147,31 +151,29 @@ width: 100%;
         <div class="row mb-3">
   <div class="col-md-3">
     <label class="form-label">출발일</label>
-    <input type="date" id="departureDate" class="form-control" placeholder="가는 날">
+    <input type="date" id="departureDate" class="form-control" placeholder="가는 날"name="departureDate">
   </div>
   <div class="col-md-3">
-    <label class="form-label">도착일</label>
-    <input type="date" id="returnDate" class="form-control" placeholder="오는 날" disabled>
+    <label class="form-label">돌아오는 일</label>
+    <input type="date" id="returnDate" class="form-control" placeholder="오는 날" name="returnDate"disabled>
   </div>
   
 </div>
         </div>
-<div class="col-md-3">
-  <label class="form-label">탑승객</label>
-  <div class="input-group">
-    <button type="button" class="btn btn-outline-secondary" onclick="decreasePassenger()">-</button>
-    <input type="text" id="passengerCount" class="form-control text-center" value="1" min="1" max="9" readonly>
-    <button type="button" class="btn btn-outline-secondary" onclick="increasePassenger()">+</button>
-  </div>
-</div>
-
+		<div class="col-md-3">
+		  <label class="form-label">탑승객</label>
+		  <div class="input-group">
+		    <button type="button" class="btn btn-outline-secondary" onclick="decreasePassenger()">-</button>
+		    <input type="text" id="passengerCount" name="passengerCount" class="form-control text-center" value="1" min="1" max="9" readonly>
+		    <button type="button" class="btn btn-outline-secondary" onclick="increasePassenger()">+</button>
+		  </div>
+		</div>
 
 
 
         <div class="col-md-3">
 		  <label class="form-label">좌석 등급</label>
 		  <select class="form-select">
-		    <option class="" name = "choice">선택하세요</option>
 		    <option class="" name = "eco">이코노미</option> <!-- 이코노미 -->
 		    <option class="" name = "biz">비즈니스</option> <!-- 비즈니스 -->
 		    <option class="" name = "fir">퍼스트</option> <!-- 퍼스트 -->
@@ -328,7 +330,7 @@ width: 100%;
         </div>
 
         <div class='col-md-5'>
-          <label class='form-label'>도착일</label>
+          <label class='form-label'>돌아오는 일</label>
           <input type='date' class='form-control' placeholder='YYYY-MM-DD'>
         </div>
       </div>
@@ -379,20 +381,58 @@ width: 100%;
   
   
   
-  	function searchFlight() {
+  function searchFlight(event) {
+	    // 기본 이벤트 동작 중지
+	    event.preventDefault();
+	    
+	    const form = document.frm;
 	    const departure = document.getElementById('departure').value;
 	    const arrival = document.getElementById('arrival').value;
 	    const departureDate = document.getElementById('departureDate').value;
-	    const passengerCount = document.getElementById('passengerCount').value;
-	    const seatClass = document.querySelector('select[class="form-select"]').value;
 	    const returnDate = document.getElementById('returnDate').value;
-
+	    const passengerCount = document.getElementById('passengerCount').value;
 	    
-	    var fm = document.frm; // frm : form객체의 이름
-      fm.action = "<%=request.getContextPath()%>/booking/dirBooking.aws";
-      fm.method = "post";
-      fm.submit(); 
-  	
+	    // 유효성 검사
+	    if (!departure) {
+	        alert('출발지를 선택해주세요.');
+	        document.getElementById('departure').focus();
+	        return false;
+	    }
+	    
+	    if (!arrival) {
+	        alert('도착지를 선택해주세요.');
+	        document.getElementById('arrival').focus();
+	        return false;
+	    }
+	    
+	    if (!departureDate) {
+	        alert('출발일을 선택해주세요.');
+	        document.getElementById('departureDate').focus();
+	        return false;
+	    }
+	    if (!returnDate) {
+	        alert('돌아오는 일을 선택해주세요.');
+	        document.getElementById('return').focus();
+	        return false;
+	    }
+	    if (!passengerCount) {
+	        alert('탑승객 수를 선택해주세요.');
+	        document.getElementById('passengerCount').focus();
+	        return false;
+	    }
+	    
+	    // 모든 검증이 통과되면 폼 제출
+	    form.departure.value = departure;
+	    form.arrival.value = arrival;
+	    form.departureDate.value = departureDate;
+	    form.returnDate.value = returnDate;
+	    form.passengerCount.value = passengerCount;
+	    
+	    form.submit();
+	}
+
+	// 이벤트 리스너 수정
+	document.getElementById('searchFlightBtn').addEventListener('click', searchFlight);
   	
 	   <%--  $.ajax({ 
             type: "post", //전송방식
@@ -449,10 +489,9 @@ width: 100%;
 	        // 에러 발생 시 로그인 페이지로 이동
 	        window.location.href = '/member/memberLogin.aws';
 	    }); */
-	}
 
 	// 이벤트 리스너 추가
-	document.getElementById('searchFlightBtn').addEventListener('click', searchFlight);
+	/* document.getElementById('searchFlightBtn').addEventListener('click', searchFlight); */
 	
 	
 	

@@ -23,9 +23,14 @@ public class FlightServiceImpl implements FlightService {
     public FlightServiceImpl(SqlSession sqlSession) {
         this.fm = sqlSession.getMapper(FlightMapper.class);
     }
+   
     
     @Override
     public List<FlightVo> searchFlights(FlightSearchDTO searchDTO) {
+    	 if (searchDTO == null) {
+             searchDTO = new FlightSearchDTO();
+             // Map에서 필요한 데이터 설정
+         }
         Map<String, Object> params = new HashMap<>();
         params.put("departure", searchDTO.getDeparture());
         params.put("arrival", searchDTO.getArrival());
@@ -35,4 +40,6 @@ public class FlightServiceImpl implements FlightService {
         
         return fm.searchFlights(params);
     }
+
+	
 }
