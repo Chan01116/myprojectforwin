@@ -1,5 +1,7 @@
 package com.chan.aws0822.domain;
 
+import java.util.List;
+
 public class FlightVo {
 	private int flight_id;
 	private String flight_number;
@@ -9,17 +11,64 @@ public class FlightVo {
 	private String arrival_time;
 	private String aircraft_type;
 	private int available_seats;
-	private double price;
+	private int price;
 	private int economy_seats;
 	private int business_seats;
 	private int first_seats;
-	private double economy_price;
-	private double business_price;
-	private double first_price;
+	private int economy_price;
+	private int business_price;
+	private int first_price;
+	private int seat_price; 
+	private String seatClass;
+	private List<String> reserved_seats;
 	
 	
 	
 	
+
+	
+	public String getSeatClass() {
+	    return seatClass;
+	}
+	public void setSeatClass(String seatClass) {
+	    this.seatClass = seatClass;
+	}
+	public List<String> getReserved_seats() {
+		return reserved_seats;
+	}
+	public void setReserved_seats(List<String> reserved_seats) {
+		this.reserved_seats = reserved_seats;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public int getEconomy_price() {
+		return economy_price;
+	}
+	public void setEconomy_price(int economy_price) {
+		this.economy_price = economy_price;
+	}
+	public int getBusiness_price() {
+		return business_price;
+	}
+	public void setBusiness_price(int business_price) {
+		this.business_price = business_price;
+	}
+	public int getFirst_price() {
+		return first_price;
+	}
+	public void setFirst_price(int first_price) {
+		this.first_price = first_price;
+	}
+	public int getSeat_price() {
+		return seat_price;
+	}
+	public void setSeat_price(int seat_price) {
+		this.seat_price = seat_price;
+	}
 	public int getFlight_id() {
 		return flight_id;
 	}
@@ -68,12 +117,7 @@ public class FlightVo {
 	public void setAvailable_seats(int available_seats) {
 		this.available_seats = available_seats;
 	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
+	
 	public int getEconomy_seats() {
 		return economy_seats;
 	}
@@ -92,23 +136,8 @@ public class FlightVo {
 	public void setFirst_seats(int first_seats) {
 		this.first_seats = first_seats;
 	}
-	public double getEconomy_price() {
-		return economy_price;
-	}
-	public void setEconomy_price(double economy_price) {
-		this.economy_price = economy_price;
-	}
-	public double getBusiness_price() {
-		return business_price;
-	}
-	public void setBusiness_price(double business_price) {
-		this.business_price = business_price;
-	}
-	public double getFirst_price() {
-		return first_price;
-	}
-	public void setFirst_price(double first_price) {
-		this.first_price = first_price;
-	}
+	
+	
+	
 
 }

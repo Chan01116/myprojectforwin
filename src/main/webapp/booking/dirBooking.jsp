@@ -36,74 +36,60 @@
                     <div class="col-md-3">출발지: ${departure}</div>
                     <div class="col-md-3">도착지: ${arrival}</div>
                     <div class="col-md-3">출발일: ${departureDate}</div>
-                    <div class="col-md-3">도착일: ${returnDate}</div>
+                    <div class="col-md-3">돌아오는 일: ${returnDate}</div>
                     <div class="col-md-3">탑승객: ${passengerCount}명</div>
                 </div>
             </div>
         </div>
+        
+        <%-- <c:out value="디버그: flightList 크기 ${not empty flightList ? flightList.size() : '데이터 없음'}" /> --%>
 
-      <!-- 항공편 목록 -->
-<div class="flight-list">
-    <h4 class="mb-4">항공편 선택</h4>
+			<div class="flight-list">
     <c:choose>
-        <c:when test="${empty flightList}">
-            <div class="alert alert-info text-center p-5 shadow-sm">
-                <i class="bi bi-exclamation-circle-fill fs-1 mb-3"></i>
-                <h4 class="alert-heading mb-3">항공편을 찾을 수 없습니다</h4>
-                <p class="mb-0">선택하신 조건에 맞는 항공편이 없습니다.</p>
-                <p>다른 날짜나 조건으로 다시 검색해 보세요.</p>
-                <button class="btn btn-outline-primary mt-3" onclick="history.back()">
-                    <i class="bi bi-arrow-left"></i> 검색 조건 수정하기
-                </button>
-            </div>
+        <c:when test="${not empty flightList}">
+            <c:forEach var="flight" items="${flightList}">
+				    <div class="flight-card" data-flight-id="${flight.flight_id}">
+				        <div class="row align-items-center">
+				            <div class="col-md-2">
+				                <h5>항공편</h5>
+				                <p class="mb-0">${flight.flight_number}</p>
+				            </div>
+				            <div class="col-md-2">
+				                <h5>출발/도착</h5>
+				                <p class="mb-0">${flight.departure_time} / ${flight.arrival_time}</p>
+				            </div>
+				           <div class="col-md-2">
+							    <h5>좌석</h5>
+							    <p class="mb-0">잔여 ${flight.available_seats}석</p>
+							</div>
+							<div class="col-md-2">
+							    <h5>가격</h5>
+							    <p class="price-info">₩<fmt:formatNumber value="${flight.seat_price}" pattern="#,###" /></p>
+							</div>
+				            <div class="col-md-2">
+				                <button class="btn btn-primary w-100" onclick="selectFlight(${flight.flight_id})">선택</button>
+				            </div>
+				        </div>
+				    </div>
+				 </c:forEach>
         </c:when>
         <c:otherwise>
-            <c:forEach items="${flightList}" var="flight">
-                <div class="flight-card" data-flight-id="${flight.flight_id}">
-                    <div class="row align-items-center">
-                        <div class="col-md-2">
-                            <h5>항공편</h5>
-                            <p class="mb-0">${flight.flight_number}</p>
-                        </div>
-                        <div class="col-md-2">
-                            <h5>출발</h5>
-                            <p class="mb-0">${flight.departure_time}</p>
-                        </div>
-                        <div class="col-md-2">
-                            <h5>도착</h5>
-                            <p class="mb-0">${flight.arrival_time}</p>
-                        </div>
-                        <div class="col-md-2">
-                            <h5>좌석</h5>
-                            <p class="mb-0">잔여 ${flight.available_seats}석</p>
-                        </div>
-                        <div class="col-md-2">
-                            <h5>가격</h5>
-                            <p class="price-info">₩<fmt:formatNumber value="${flight.price}" pattern="#,###" /></p>
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-primary w-100" onclick="selectFlight(${flight.flight_id})">선택</button>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
+            <div class="alert alert-info">
+                검색 조건에 맞는 항공편이 없습니다.
+            </div>
         </c:otherwise>
     </c:choose>
 </div>
-
-    
-    
     
     <script>
     function selectFlight(flightId) {
-        // URL에 필요한 파라미터들을 추가
         const url = '/booking/seat.aws?' + 
             'flightId=' + flightId + 
             '&passengerCount=${passengerCount}' +
             '&departure=${departure}' +
             '&arrival=${arrival}' +
             '&departureDate=${departureDate}' +
-            '&price=' + encodeURIComponent(document.querySelector(`[data-flight-id="${flightId}"] .price-info`).textContent);
+            '&selectedGrade=${selectedGrade}';
         
         window.location.href = url;
     }

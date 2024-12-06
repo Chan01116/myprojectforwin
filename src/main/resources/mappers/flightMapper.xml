@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.chan.aws0822.persistance.FlightMapper">
-    <select id="searchFlights" parameterType="HashMap" resultType="fv">
-    SELECT f.*, 
-           dep.airport_code as departure_code,
-           arr.airport_code as arrival_code
+ <mapper namespace="com.chan.aws0822.persistance.FlightMapper">
+<select id="searchFlights" parameterType="fdto" resultType="fv">
+    SELECT 
+        f.flight_id, 
+        f.flight_number,
+        f.departure_time,
+        f.arrival_time,
+        a1.airport_code as departure_code,
+        a2.airport_code as arrival_code,
+        CASE 
+            WHEN #{selectedGrade, jdbcType=VARCHAR} = 'E' THEN f.economy_seats
+            WHEN #{selectedGrade, jdbcType=VARCHAR} = 'B' THEN f.business_seats
+            WHEN #{selectedGrade, jdbcType=VARCHAR} = 'F' THEN f.first_seats
+            ELSE f.economy_seats
+        END as available_seats,
+        CASE 
+            WHEN #{selectedGrade, jdbcType=VARCHAR} = 'E' THEN CAST(f.economy_price AS SIGNED)
+            WHEN #{selectedGrade, jdbcType=VARCHAR} = 'B' THEN CAST(f.business_price AS SIGNED)
+            WHEN #{selectedGrade, jdbcType=VARCHAR} = 'F' THEN CAST(f.first_price AS SIGNED)
+            ELSE CAST(f.economy_price AS SIGNED)
+        END as seat_price
     FROM flight f
-    JOIN airport dep ON f.departure_airport_id = dep.airport_id
-    JOIN airport arr ON f.arrival_airport_id = arr.airport_id
-    WHERE dep.airport_code = #{departure}
-    AND arr.airport_code = #{arrival}
-    AND DATE(f.departure_time) = #{departureDate}
-    AND f.available_seats >= #{passengerCount}
-    ORDER BY f.departure_time ASC
+    JOIN airport a1 ON f.departure_airport_id = a1.airport_id
+    JOIN airport a2 ON f.arrival_airport_id = a2.airport_id
+    WHERE a1.airport_code = #{departure}
+    AND a2.airport_code = #{arrival}
+    AND DATE(f.departure_time) = DATE(#{departureDate})
 </select>
 </mapper>
+

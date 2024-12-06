@@ -7,13 +7,22 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class FlightSearchDTO {
 	 @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	    
-	  private String departure;        // 출발지 공항 코드
+	    private String departure;        // 출발지 공항 코드
 	    private String arrival;         // 도착지 공항 코드
-	    private LocalDateTime departureDate;  // 출발일
+	    private String departureDate;  // 출발일
 	    private int passengerCount;     // 탑승객 수
 	    private String seatClass;       // 좌석 등급
+	    private String selectedGrade;  // 추가
 	    
-	    // 기본 생성자
+	    public String getSelectedGrade() {
+			return selectedGrade;
+		}
+
+		public void setSelectedGrade(String selectedGrade) {
+			this.selectedGrade = selectedGrade;
+		}
+
+		// 기본 생성자
 	    public FlightSearchDTO() {}
 
 		public String getDeparture() {
@@ -32,11 +41,13 @@ public class FlightSearchDTO {
 			this.arrival = arrival;
 		}
 
-		public LocalDateTime getDepartureDate() {
+		
+
+		public String getDepartureDate() {
 			return departureDate;
 		}
 
-		public void setDepartureDate(LocalDateTime departureDate) {
+		public void setDepartureDate(String departureDate) {
 			this.departureDate = departureDate;
 		}
 

@@ -79,9 +79,10 @@ width: 100%;
   <img src="https://www.rosenaviation.com/wp-content/uploads/2024/02/Longest-commercial-flights-Rosen-Aviation-scaled.jpeg" class="img-fluid mt-1" alt="">
   
    <form name="frm" method="post" action="/booking/dirBooking.aws" class="tabs-overlay">
-        <input type="hidden" name="departure" id="departure_hidden">
-        <input type="hidden" name="arrival" id="arrival_hidden">
-        <input type="hidden" name="departureDate" id="departureDate_hidden">
+    <input type="hidden" name="departure" id="departure_hidden">
+    <input type="hidden" name="arrival" id="arrival_hidden">
+    <input type="hidden" name="departureDate" id="departureDate_hidden">
+    <input type="hidden" name="selectedGrade" id="selectedGrade_hidden">  <!-- 이미 있음 -->
         
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
@@ -170,15 +171,14 @@ width: 100%;
 		</div>
 
 
-
-        <div class="col-md-3">
-		  <label class="form-label">좌석 등급</label>
-		  <select class="form-select">
-		    <option class="" name = "eco">이코노미</option> <!-- 이코노미 -->
-		    <option class="" name = "biz">비즈니스</option> <!-- 비즈니스 -->
-		    <option class="" name = "fir">퍼스트</option> <!-- 퍼스트 -->
-		  </select>
-		</div>
+						<div class="col-md-3">
+						    <label class="form-label">좌석 등급</label>
+						    <select class="form-select" name="selectedGrade">
+						        <option value="E">이코노미</option>
+						        <option value="B">비즈니스</option>
+						        <option value="F">퍼스트</option>
+						    </select>
+						</div>
 
       </div>
 
@@ -382,16 +382,14 @@ width: 100%;
   
   
   function searchFlight(event) {
-	    // 기본 이벤트 동작 중지
 	    event.preventDefault();
-	    
 	    const form = document.frm;
 	    const departure = document.getElementById('departure').value;
 	    const arrival = document.getElementById('arrival').value;
 	    const departureDate = document.getElementById('departureDate').value;
 	    const returnDate = document.getElementById('returnDate').value;
 	    const passengerCount = document.getElementById('passengerCount').value;
-	    
+	    const selectedGrade = document.querySelector('select[name="selectedGrade"]').value;
 	    // 유효성 검사
 	    if (!departure) {
 	        alert('출발지를 선택해주세요.');
@@ -427,7 +425,8 @@ width: 100%;
 	    form.departureDate.value = departureDate;
 	    form.returnDate.value = returnDate;
 	    form.passengerCount.value = passengerCount;
-	    
+	    form.selectedGrade.value = selectedGrade;  // 이 부분이 중요
+
 	    form.submit();
 	}
 

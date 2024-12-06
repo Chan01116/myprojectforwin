@@ -12,10 +12,17 @@ public class ReservationVo {
 	    private double totalPrice;  // Ãß°¡: ÃÑ °áÁ¦ ±Ý¾×
 	    private String passengerName;  // Ãß°¡: ½Â°´ ÀÌ¸§
 	    private String seatGrade;  // Ãß°¡: ÁÂ¼® µî±Þ
+	    private String seat_number;
 		
 	    
 	    
-	    public int getReservationId() {
+	    public String getSeat_number() {
+			return seat_number;
+		}
+		public void setSeat_number(String seat_number) {
+			this.seat_number = seat_number;
+		}
+		public int getReservationId() {
 			return reservationId;
 		}
 		public void setReservationId(int reservationId) {

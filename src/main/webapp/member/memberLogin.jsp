@@ -41,7 +41,7 @@
 <body>
 
 <main class="form-signin text-center">
-  <form name="frm" method="post">
+  <form name="loginfrm" method="post">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div class="form-floating mb-3">
@@ -60,7 +60,7 @@
       </label>
     </div> -->
     
-   <button class="btn btn-primary w-100 py-2 mb-2" type="submit" onclick="check();">Sign in</button>
+   <button class="btn btn-primary w-100 py-2 mb-2" type="button" onclick="loginCheck();">Sign in</button>
     <button class="btn btn-secondary w-100 py-2" type="button" onclick="location.href='<%=request.getContextPath()%>/member/memberJoin.aws'">Sign Up</button>
     
     <p class="mt-5 mb-3 text-muted">&copy; 2017–2024</p>
@@ -74,7 +74,7 @@ if(session.getAttribute("midx") != null) {
 }
 %>
 
-function check() {
+function loginCheck() {
     let memberid = document.getElementsByName("memberid");
     let memberpassword = document.getElementsByName("memberpassword");
     
@@ -88,7 +88,7 @@ function check() {
         return;
     }
     
-    var fm = document.frm;
+    var fm = document.loginfrm;
     fm.action = "<%=request.getContextPath()%>/member/memberLoginAction.aws";
     fm.method = "post";
     fm.submit();

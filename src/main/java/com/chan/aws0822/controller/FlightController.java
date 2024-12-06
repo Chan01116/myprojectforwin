@@ -18,20 +18,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chan.aws0822.domain.FlightSearchDTO;
 import com.chan.aws0822.domain.FlightVo;
 import com.chan.aws0822.domain.ReservationVo;
 import com.chan.aws0822.service.FlightService;
+import com.chan.aws0822.service.ReservationService;
+import com.chan.aws0822.service.SeatService;
 
 @Controller
 @RequestMapping(value = "/booking/")
 public class FlightController { 
 	
 	
-	@Autowired
-    private FlightService flightService;
-		
+	  @Autowired
+	    private FlightService flightService;
+
+	    @Autowired
+	    private ReservationService reservationService;
+	    
+	    @Autowired
+	    private SeatService seatService;
 	
 	@RequestMapping(value = "searchFlights.aws", method = {RequestMethod.GET, RequestMethod.POST})
 	 public ResponseEntity<?> searchFlights(@RequestBody(required = false) FlightSearchDTO searchDTO, 
@@ -78,11 +86,11 @@ public class FlightController {
 						
 						
 						
-						@GetMapping("checkSeat.aws")
-						public ResponseEntity<?> getAvailableSeats(@RequestParam int flightId) {
-						    return ResponseEntity.ok(seatService.getAvailableSeats(flightId));
-						}
-						
+					/*
+					 * @GetMapping("checkSeat.aws") public ResponseEntity<?>
+					 * getAvailableSeats(@RequestParam int flightId) { return
+					 * ResponseEntity.ok(seatService.getAvailableSeats(flightId)); }
+					 */
 						
 						
 						
@@ -118,38 +126,43 @@ public class FlightController {
 						                        @RequestParam String departureDate,
 						                        @RequestParam String passengerCount,
 						                        @RequestParam(required = false) String returnDate,
+						                        @RequestParam(value = "selectedGrade", required = false) String selectedGrade,
 						                        Model model) {
-							 departure = departure.replace(",", "").trim();
-							    arrival = arrival.replace(",", "").trim();
-							    departureDate = departureDate.replace(",", "").trim();
-							    passengerCount = passengerCount.replace(",", "").trim();
-							    if (returnDate != null) {
-							        returnDate = returnDate.replace(",", "").trim();
-							    }
-							
-							
 						    
-						    int passengers = Integer.parseInt(passengerCount.replace(",", ""));
+						    // 데이터 정제
+						    departure = departure.replaceAll("[,\\s]", "");
+						    arrival = arrival.replaceAll("[,\\s]", "");
+						    departureDate = departureDate.replaceAll("[,\\s]", "");
+						    passengerCount = passengerCount.replaceAll("[,\\s]", "");
 						    
-						    // 날짜 문자열에서 쉼표 제거 및 시간 추가
-						    String cleanDate = departureDate.replace(",", "") + " 00:00:00";
+						   // System.out.println("검색 조건: " + departure + ", " + arrival + ", " + departureDate);
+						    
+						    if (selectedGrade != null) {
+						        selectedGrade = selectedGrade.replaceAll("[,\\s]", "");
+						    }
+
+						    int passengers = Integer.parseInt(passengerCount);
 						    
 						    FlightSearchDTO searchDTO = new FlightSearchDTO();
 						    searchDTO.setDeparture(departure);
 						    searchDTO.setArrival(arrival);
-						    searchDTO.setDepartureDate(LocalDateTime.parse(cleanDate, 
-						        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+						    searchDTO.setDepartureDate(departureDate); // String으로 전달
 						    searchDTO.setPassengerCount(passengers);
+						    //System.out.println("Controller에서 selectedGrade 값: " + selectedGrade);
+						    searchDTO.setSelectedGrade(selectedGrade != null ? selectedGrade : "E");
+						    //System.out.println("DTO에 설정된 selectedGrade 값: " + searchDTO.getSelectedGrade());
 						    
 						    List<FlightVo> flightList = flightService.searchFlights(searchDTO);
 						    
+						    // 모델에 데이터 추가
 						    model.addAttribute("departure", departure);
 						    model.addAttribute("arrival", arrival);
 						    model.addAttribute("departureDate", departureDate);
 						    model.addAttribute("passengerCount", passengers);
 						    model.addAttribute("returnDate", returnDate != null ? returnDate : "");
 						    model.addAttribute("flightList", flightList);
-						    
+						    model.addAttribute("selectedGrade", selectedGrade);
+						    //System.out.println("선택된 등급: " + searchDTO.getSelectedGrade());
 						    return "/booking/dirBooking";
 						}
 						
@@ -170,12 +183,60 @@ public class FlightController {
 					    }
 						
 						
+						
+						@RequestMapping(value = "selectSeat.aws", method = RequestMethod.POST)
+						@ResponseBody
+						public Map<String, Object> selectSeat(@RequestBody Map<String, Object> params) {
+						    Map<String, Object> response = new HashMap<>();
+						    try {
+						        // 좌석 선택 로직 구현
+						        boolean success = flightService.selectSeat(
+						            Integer.parseInt(params.get("flightId").toString()),
+						            params.get("seatId").toString(),
+						            params.get("grade").toString()
+						        );
+						        response.put("success", success);
+						    } catch (Exception e) {
+						        response.put("success", false);
+						    }
+						    return response;
+						}
+						
+						
+						
+						
+						
+						
+						
 						@RequestMapping(value = "seat.aws", method = RequestMethod.GET)
-					    public String seat() {
-					    	
-					        
-					        return "/booking/seat";
-					    }
+						public String seat(@RequestParam("flightId") int flightId, Model model) {
+						    FlightVo flight = flightService.getFlightById(flightId);
+						    model.addAttribute("flight", flight);
+						    return "/booking/seat";
+						}
+						
+						@PostMapping("completeReservation.aws")
+						public String completeReservation(@RequestParam int flightId,
+						                                  @RequestParam String Seat_number,
+						                                  @RequestParam String selectedGrade,
+						                                  HttpSession session,
+						                                  Model model) {
+						    Integer midx = (Integer) session.getAttribute("midx");
+						    if (midx == null) {
+						        return "redirect:/member/login.aws";
+						    }
+
+						    ReservationVo reservation = new ReservationVo();
+						    reservation.setFlightId(flightId);
+						    reservation.setMidx(midx);
+						    reservation.setSeat_number(Seat_number);
+						    reservation.setSeatGrade(selectedGrade);
+
+						    reservationService.createReservation(reservation);
+
+						    model.addAttribute("reservationDetails", reservation);
+						    return "/booking/reservationConfirmation";
+						}
 						
 						
 					

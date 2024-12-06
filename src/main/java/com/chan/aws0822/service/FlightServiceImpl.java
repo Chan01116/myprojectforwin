@@ -38,8 +38,56 @@ public class FlightServiceImpl implements FlightService {
         params.put("seatClass", searchDTO.getSeatClass());
         params.put("passengerCount", searchDTO.getPassengerCount());
         
-        return fm.searchFlights(params);
+        return fm.searchFlights(searchDTO);
     }
+
+
+	@Override
+	public FlightVo getFlightById(int flightId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	 @Override
+	    public boolean selectSeat(int flightId, String seatId, String grade) {
+	        try {
+	            // ÁÂ¼® À¯È¿¼º °Ë»ç
+	            FlightVo flight = fm.getFlightById(flightId);
+	            if (flight == null) {
+	                return false;
+	            }
+
+	            // ÁÂ¼® µî±Þ È®ÀÎ
+	            int availableSeats = 0;
+	            switch(grade) {
+	                case "E":
+	                    availableSeats = flight.getEconomy_seats();
+	                    break;
+	                case "B":
+	                    availableSeats = flight.getBusiness_seats();
+	                    break;
+	                case "F":
+	                    availableSeats = flight.getFirst_seats();
+	                    break;
+	                default:
+	                    return false;
+	            }
+
+	            // ÀÜ¿© ÁÂ¼® È®ÀÎ
+	            if (availableSeats <= 0) {
+	                return false;
+	            }
+
+	            // ÁÂ¼® ¿¹¾à Ã³¸®
+	            return fm.reserveSeat(flightId, seatId, grade) > 0;
+	            
+	        } catch (Exception e) {
+	            return false;
+	        }
+	    }
+	
+	
+	
 
 	
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chan.aws0822.persistance.SeatMapper">
+    <!-- 항공편의 모든 좌석 조회 -->
+    <select id="getAllSeats" parameterType="int" resultType="sv">
+        SELECT * FROM seat 
+        WHERE flight_id = #{flightId}
+    </select>
+    
+    <!-- 좌석 등급별 잔여 좌석 조회 -->
+    <select id="getAvailableSeats" resultType="String">
+        SELECT s.seat_number 
+        FROM seat s
+        LEFT JOIN reservation r ON s.sidx = r.seat_id
+        WHERE s.flight_id = #{flightId} 
+        AND s.seat_grade = #{seatGrade}
+        AND r.seat_id IS NULL
+    </select>
+    
+    <!-- 좌석 예약 가능 여부 확인 -->
+    <select id="isSeatAvailable" resultType="boolean">
+        SELECT COUNT(*) = 0
+        FROM reservation
+        WHERE seat_id = (
+            SELECT sidx FROM seat 
+            WHERE flight_id = #{flightId} 
+            AND seat_number = #{seatNumber}
+        )
+    </select>
+    
+    <!-- 특정 좌석 정보 조회 -->
+    <select id="getSeatByNumber" resultType="sv">
+        SELECT * FROM seat
+        WHERE flight_id = #{flightId}
+        AND seat_number = #{seatNumber}
+    </select>
+</mapper>

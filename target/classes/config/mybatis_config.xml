@@ -2,14 +2,27 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
  
 <configuration> 
+
+<!--  <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings> -->
 <typeAliases>
  <typeAlias alias="mv" type="com.chan.aws0822.domain.MemberVo"/> <!-- alias = 타입이 기니까 이 이름으로 부르겠다 -->
 <typeAlias alias="nv" type="com.chan.aws0822.domain.NoticeVo"/>
 <typeAlias alias="av" type="com.chan.aws0822.domain.AirportVo"/>
 <typeAlias alias="fv" type="com.chan.aws0822.domain.FlightVo"/>
 <typeAlias alias="rv" type="com.chan.aws0822.domain.ReservationVo"/>
+<typeAlias alias="sv" type="com.chan.aws0822.domain.SeatVo"/>
 <typeAlias alias="qv" type="com.chan.aws0822.domain.QnaVo"/>
 <typeAlias alias="fdto" type="com.chan.aws0822.domain.FlightSearchDTO"/>
 <typeAlias alias="scri" type="com.chan.aws0822.domain.SearchCriteria"/>
 </typeAliases>
+
+<!-- DateTime 해결을 위한 typeHandlers -->
+     <typeHandlers>
+        <typeHandler handler="com.chan.aws0822.handler.LocalDateTimeTypeHandler"/>
+    </typeHandlers>
+    
+    
+    
 </configuration>

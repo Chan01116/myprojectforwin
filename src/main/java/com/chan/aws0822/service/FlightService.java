@@ -9,6 +9,9 @@ import com.chan.aws0822.domain.FlightVo;
 public interface FlightService {
 	 
 	 List<FlightVo> searchFlights(FlightSearchDTO searchDTO);
+	 FlightVo getFlightById(int flightId);
+	 boolean selectSeat(int flightId, String seatId, String grade);
+	
 	
 
 }
