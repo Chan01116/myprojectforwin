@@ -74,8 +74,7 @@ public class MemberController {
 				}
 				
 				
-			}else {
-				
+			}else {				
 				rttr.addAttribute("midx", "");
 				rttr.addAttribute("memberId", "");
 				rttr.addAttribute("memberName", "");
@@ -84,6 +83,7 @@ public class MemberController {
 				path = "redirect:/member/memberLogin.aws";
 			}		
 		}else {
+
 			rttr.addAttribute("midx", "");
 			rttr.addAttribute("memberId", "");
 			rttr.addAttribute("memberName", "");    //위험해서 안씀

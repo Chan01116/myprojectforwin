@@ -7,34 +7,34 @@
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'></script>
 
 <meta charset="UTF-8">
-<title>메인 페이지</title>
+<title></title>
 <style>
 body {
     padding-top: 80px;
 }
-#loginButton:focus {
+body #loginButton:focus {
     outline: none;
     box-shadow: none;
 }
-.navbar .btn {
+body .navbar .btn {
     padding: 0.375rem 0.75rem;
     margin-left: 0.5rem;
     white-space: nowrap;
 }
-.btn-outline-success {
+body .btn-outline-success {
     color: #28a745;
     border-color: #28a745;
 }
-.btn-outline-success:hover {
+body .btn-outline-success:hover {
     background-color: #28a745;
     color: white;
 }
-.btn-info {
+body .btn-info {
     background-color: #007bff;
     border-color: #007bff;
     color: white;
 }
-.btn-info:hover {
+body .btn-info:hover {
     background-color: #0056b3;
     border-color: #0056b3;
 }
@@ -94,9 +94,7 @@ body {
             <div class="modal-body">
                 <!-- AJAX로 로드된 컨텐츠가 여기에 삽입됩니다 -->
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="loginCheck()">로그인</button>
-            </div>
+
         </div>
     </div>
 </div>
@@ -168,6 +166,10 @@ function qnawriteCheck() {
         fm.submit();
     }
 }
+
+const loginBtn = document.querySelector("#loginBtn");
+loginBtn.addEventListener("click", loginCheck());
+
 </script>
 
 </body>
