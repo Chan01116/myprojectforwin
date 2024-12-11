@@ -358,7 +358,9 @@ width: 100%;
   <div class="promo-img">
     <a href="http://localhost/board/noticeContents.aws?nidx=8"><img src="https://img.freepik.com/free-vector/hand-drawn-travel-adventure-facebook-cover_23-2150877996.jpg" alt="프로모션2" /></a>
   </div>
-
+  <br>
+  
+ <a class="btn aBtn" href="${pageContext.request.contextPath}/email/emailWrite.aws">메일쓰기</a>
   <!-- 하단 저작권 -->
   <footer class="copyright">Copyright &copy; Chan</footer>
   

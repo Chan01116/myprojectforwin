@@ -14,6 +14,11 @@ public class FlightSearchDTO {
 	    private String seatClass;       // 좌석 등급
 	    private String selectedGrade;  // 추가
 	    
+	    
+	    
+	    
+	    
+	    
 	    public String getSelectedGrade() {
 			return selectedGrade;
 		}
