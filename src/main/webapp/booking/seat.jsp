@@ -1,19 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.chan.aws0822.domain.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.chan.aws0822.domain.FlightVo" %>
+
+
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>좌석선택</title>
-    
-    <%
-    FlightVo flightVo = new FlightVo();
-    String selectedGrade = "B"; // 또는 다른 값 (F, B, E 등)
-    request.setAttribute("selectedGrade", selectedGrade);
-    request.setAttribute("flight", flightVo);
-    %>
-    
+    <title>좌석 선택</title>
+
     <style>
         .seat-container {
             position: relative;
@@ -69,62 +67,60 @@
 <body>
     <%@ include file="/header/navbar.jsp" %>
 
-       <div class="container mt-5">
-        <h2>Flight Seat Selection</h2>
+    <div class="container mt-5">
+        <h2>항공편 좌석 선택</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Flight Number</th>
-                    <th>Departure</th>
-                    <th>Arrival</th>
-                    <th>Aircraft</th>
-                    <th>Economy Seats</th>
-                    <th>Business Seats</th>
-                    <th>First Class Seats</th>
-                    <th>Available Seats</th>
-                    <th>Select Seat</th>
+                    <th>항공편 번호</th>
+                    <th>출발 시간</th>
+                    <th>도착 시간</th>
+                    <th>항공기 종류</th>
+                    <th>이코노미 좌석</th>
+                    <th>비즈니스 좌석</th>
+                    <th>퍼스트 클래스 좌석</th>
+                    <th>사용 가능한 좌석</th>
+                    <th>좌석 선택</th>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="flight" items="${flights}">
-                    <tr>
-                        <td>${flight.flight_number}</td>
-                        <td>${flight.departure_time}</td>
-                        <td>${flight.arrival_time}</td>
-                        <td>${flight.aircraft_type}</td>
-                        <td>${flight.economy_seats}</td>
-                        <td>${flight.business_seats}</td>
-                        <td>${flight.first_seats}</td>
-                        <td>${flight.available_seats}</td>
-                        <td>
-                            <form action="reserveSeat" method="post">
-                                <input type="hidden" name="flight_id" value="${flight.flight_id}">
-                                <select name="seat_class" class="form-select">
-                                    <option value="economy">Economy</option>
-                                    <option value="business">Business</option>
-                                    <option value="first">First Class</option>
-                                </select>
-                                <button type="submit" class="btn btn-primary mt-2">Select</button>
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
+                <c:set var="flight" value="${flight}" />
+                <tr>
+                    <td>${flight.flight_number}</td>
+                    <td>${flight.departure_time}</td>
+                    <td>${flight.arrival_time}</td>
+                    <td>${flight.aircraft_type}</td>
+                    <td>${flight.economy_seats}</td>
+                    <td>${flight.business_seats}</td>
+                    <td>${flight.first_seats}</td>
+                    <td>${flight.available_seats}</td>
+                    <td>
+                        <form action="reserveSeat" method="post">
+                            <input type="hidden" name="flight_id" value="${flight.flight_id}">
+                            <select name="seat_class" class="form-select">
+                                <option value="economy">이코노미</option>
+                                <option value="business">비즈니스</option>
+                                <option value="first">퍼스트 클래스</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary mt-2">선택하기</button>
+                        </form>
+                    </td>
+                </tr>
             </tbody>
         </table>
+
+        <!-- 좌석 선택 컨테이너 -->
+        <div id="seat-selection" class="seat-container"></div>
+
+        <!-- 선택된 좌석 표시 -->
+        <div id="selected-seat-display">선택된 좌석 ID가 여기에 표시됩니다.</div>
+
     </div>
 
-
     <!-- JavaScript -->
-    <script>
+    <script type="text/javascript">
         const selectedGrade = '${selectedGrade}';
-        const flight = {
-            flight_id: '${flight.flight_id}',
-            flight_number: '${flight.flight_number}',
-            departure_time: '${flight.departure_time}',
-            arrival_time: '${flight.arrival_time}',
-            available_seats: ${flight.available_seats}
-        };
-
+        
         function generateSeats(grade) {
             const seats = [];
             const rows = grade === 'F' ? 2 : grade === 'B' ? 4 : 20; // 등급별 행 수
@@ -134,9 +130,9 @@
             for (let i = 0; i < rows; i++) {
                 for (let j = 0; j < cols; j++) {
                     seats.push({
-                        id: `${String.fromCharCode(65 + i)}${j + 1}`,  // A1, B1, C1 같은 형식
-                        seatClass: grade.toLowerCase(),  // 클래스 (e.g., economy, business, first)
-                        isReserved: Math.random() > 0.7,  // 예약 여부 (랜덤으로 설정)
+                        id: `${String.fromCharCode(65 + i)}${j + 1}`, // A1, B1, C1 같은 형식
+                        seatClass: grade.toLowerCase(), // 클래스 (e.g., economy, business, first)
+                        isReserved: Math.random() > 0.7, // 예약 여부 (랜덤으로 설정)
                     });
                 }
             }
@@ -145,6 +141,9 @@
 
         function renderSeatSelection() {
             const container = document.getElementById('seat-selection');
+            
+            if (!container) return;
+
             const seats = generateSeats(selectedGrade); // 좌석 데이터 생성
             container.innerHTML = ''; // 기존 좌석 초기화
 
@@ -157,34 +156,48 @@
 
         function createSeatElement(seat) {
             const seatDiv = document.createElement('div');
-            seatDiv.className = `seat ${seat.seatClass} ${seat.isReserved ? 'reserved' : ''}`;  // 예약된 좌석은 reserved 클래스 추가
-            seatDiv.textContent = seat.id;  // 좌석 ID 표시 (예: A1, B2)
-            seatDiv.dataset.id = seat.id;  // 데이터 속성에 좌석 ID 저장
+            
+            seatDiv.className = `seat ${seat.seatClass} ${seat.isReserved ? 'reserved' : ''}`; // 예약된 좌석은 reserved 클래스 추가
+            seatDiv.textContent = seat.id; // 좌석 ID 표시 (예: A1, B2)
+            
+            seatDiv.dataset.id = seat.id; // 데이터 속성에 좌석 ID 저장
 
             // 예약되지 않은 좌석 클릭 시 선택할 수 있게 처리
             if (!seat.isReserved) {
                 seatDiv.onclick = () => selectSeat(seat.id);
-            }
+                seatDiv.style.cursor = 'pointer';
+                seatDiv.title = '이 좌석을 선택하려면 클릭하세요';
+                
+                if (!document.getElementById('selected-seat-display')) return;
 
-            return seatDiv;
-        }
+                document.getElementById('selected-seat-display').textContent = `선택된 좌석 ID가 여기에 표시됩니다.`;
+                
+                function selectSeat(seatId) {
+                    const previousSelected = document.querySelector('.seat.selected');
+                    
+                    if (previousSelected) previousSelected.classList.remove('selected'); // 이전 선택된 좌석 해제
+                    
+                    const selectedSeat = document.querySelector(`.seat[data-id='${seatId}']`);
+                    
+                    if (!selectedSeat) return;
 
-        function selectSeat(seatId) {
-            const previousSelected = document.querySelector('.seat.selected');
-            if (previousSelected) previousSelected.classList.remove('selected');  // 이전 선택된 좌석 해제
-            
-            const selectedSeat = document.querySelector(`.seat[data-id='${seatId}']`);
-            selectedSeat.classList.add('selected');  // 새로 선택된 좌석에 selected 클래스 추가
-            document.getElementById('selected-seat').textContent = seatId;  // 선택한 좌석 ID 표시
-        }
+                    selectedSeat.classList.add('selected'); // 새로 선택된 좌석에 selected 클래스 추가
+                    
+                    document.getElementById('selected-seat-display').textContent = `선택된 좌석 ID는 ${seatId}입니다.`; // 선택한 좌석 ID 표시
+                }
+                
+                window.onload = renderSeatSelection;
 
-        function confirmSeatSelection() {
-            alert('좌석 선택이 완료되었습니다!');
-            // 추가 작업을 여기에 작성 (예: 서버로 선택 정보 전송)
-        }
+                function confirmSeatSelection() {
+                    alert('좌석 선택이 완료되었습니다!');
+                    
+                    // 추가 작업을 여기에 작성 (예: 서버로 선택 정보 전송)
+                }
+                
+                window.onload = renderSeatSelection;
 
-        // 페이지가 로드되면 좌석을 렌더링
-        window.onload = renderSeatSelection;
-    </script>
-</body>
-</html>
+                function confirmSeatSelection() {
+                    alert('좌석 선택이 완료되었습니다!');
+                }
+                    
+                    // 추가 작업을 여기에 작성 (예:

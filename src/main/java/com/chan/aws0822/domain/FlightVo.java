@@ -4,6 +4,7 @@ import java.util.List;
 
 public class FlightVo {
 	private int flight_id;
+	
 	private String flight_number;
 	private int departure_airport_id;
 	private int arrival_airport_id;

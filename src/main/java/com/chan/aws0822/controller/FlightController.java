@@ -212,6 +212,7 @@ public class FlightController {
 						public String seat(@RequestParam("flightId") int flightId, Model model) {
 						    FlightVo flight = flightService.getFlightById(flightId);
 						    model.addAttribute("flight", flight);
+						    System.out.println("fligth°ªÀº? : "+ flight);
 						    return "/booking/seat";
 						}
 						
